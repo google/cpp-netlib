@@ -14,6 +14,7 @@ if (Boost_FOUND)
         message_test
         message_transform_test
         utils_thread_pool
+	# utils_base64_test -- turn on when ready.
         )
     foreach (test ${TESTS})
         if (${CMAKE_CXX_COMPILER_ID} MATCHES GNU)
@@ -21,11 +22,17 @@ if (Boost_FOUND)
             PROPERTIES COMPILE_FLAGS "-Wall")
         endif()
         add_executable(cpp-netlib-${test} ${test}.cpp)
-	add_dependencies(cpp-netlib-${test} cppnetlib-uri)
+	    add_dependencies(cpp-netlib-${test} cppnetlib-uri)
         target_link_libraries(cpp-netlib-${test} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} cppnetlib-uri)
         if (OPENSSL_FOUND)
-            target_link_libraries(cpp-netlib-${test} ${OPENSSL_LIBRARIES})
+          target_link_libraries(cpp-netlib-${test} ${OPENSSL_LIBRARIES})
         endif()
+        if (${CMAKE_CXX_COMPILER_ID} MATCHES GNU AND ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+		  target_link_libraries(cpp-netlib-${test} ws2_32 wsock32)
+		endif()
+	    if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+	      target_link_libraries(cpp-netlib-${test} rt)
+	    endif()
         set_target_properties(cpp-netlib-${test}
             PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CPP-NETLIB_BINARY_DIR}/tests)
         add_test(cpp-netlib-${test}

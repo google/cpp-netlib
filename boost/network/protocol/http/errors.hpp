@@ -10,23 +10,22 @@
 #include <boost/network/protocol/http/message.hpp>
 #include <exception>
 
-namespace boost { namespace network { namespace http { namespace errors {
+namespace boost {
+namespace network {
+namespace http {
+namespace errors {
 
-    template <class Tag=tags::http_default_8bit_tcp_resolve>
-        struct connection_timeout_exception : 
-            std::runtime_error
-    {
-    };
+template <class Tag = tags::http_default_8bit_tcp_resolve>
+struct connection_timeout_exception : std::runtime_error {};
 
-    typedef connection_timeout_exception<> connection_timeout;
+typedef connection_timeout_exception<> connection_timeout;
 
-} // namespace errors
+}  // namespace errors
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // __NETWORK_PROTOCOL_HTTP_20080516_HPP__
-
+#endif  // __NETWORK_PROTOCOL_HTTP_20080516_HPP__

@@ -12,31 +12,29 @@
 #include <boost/network/traits/char.hpp>
 #include <istream>
 
-namespace boost { namespace network {
-    
-    template <class Tag>
-    struct unsupported_tag;
-    
-    template <class Tag, class Enable = void>
-    struct istream
-    {
-        typedef unsupported_tag<Tag> type;
-    };
-    
-    template <class Tag>
-    struct istream<Tag, typename enable_if<is_default_string<Tag> >::type>
-    {
-        typedef std::istream type;
-    };
-    
-    template <class Tag>
-    struct istream<Tag, typename enable_if<is_default_wstring<Tag> >::type>
-    {
-        typedef std::wistream type;
-    };
+namespace boost {
+namespace network {
+
+template <class Tag>
+struct unsupported_tag;
+
+template <class Tag, class Enable = void>
+struct istream {
+  typedef unsupported_tag<Tag> type;
+};
+
+template <class Tag>
+struct istream<Tag, typename enable_if<is_default_string<Tag> >::type> {
+  typedef std::istream type;
+};
+
+template <class Tag>
+struct istream<Tag, typename enable_if<is_default_wstring<Tag> >::type> {
+  typedef std::wistream type;
+};
 
 } /* network */
-    
+
 } /* boost */
 
 #endif /* BOOST_NETWORK_TRAITS_ISTREAM_HPP_20100924 */

@@ -33,14 +33,14 @@ overload of the ``basic_client``:
 
 
 The default typedef for the HTTP client that is provided uses the
-``http_default_8bit_udp_resolve`` tag, and implements HTTP 1.0. The exact
+``http_async_8bit_udp_resolve`` tag, and implements HTTP 1.1. The exact
 typedef is in the ``boost::network::http`` namespace as the following:
 
 .. code-block:: c++
 
     namespace boost { namespace network { namespace http {
 
-        typedef basic_client<tags::http_default_8bit_udp_resolve, 1, 0>
+        typedef basic_client<tags::http_async_8bit_udp_resolve, 1, 1>
             client;
 
     }}}

@@ -4,8 +4,9 @@ Contents
 --------
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 4
 
+   index.rst
    whats_new.rst
    getting_started.rst
    examples.rst

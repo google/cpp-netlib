@@ -9,16 +9,18 @@
 #include <boost/network/tags.hpp>
 #include <boost/utility/enable_if.hpp>
 
-namespace boost { namespace network {
+namespace boost {
+namespace network {
 
-    template <class Tag, class Enable = void>
-    struct is_pod : mpl::false_ {};
-    
-    template <class Tag>
-    struct is_pod<Tag, typename enable_if<typename Tag::is_pod>::type> : mpl::true_ {};
-    
+template <class Tag, class Enable = void>
+struct is_pod : mpl::false_ {};
+
+template <class Tag>
+struct is_pod<Tag,
+              typename enable_if<typename Tag::is_pod>::type> : mpl::true_ {};
+
 } /* network */
-    
+
 } /* boost */
 
 #endif /* BOOST_NETWORK_SUPPORT_IS_POD_HPP_20101120 */

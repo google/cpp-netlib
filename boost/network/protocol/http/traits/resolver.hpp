@@ -17,44 +17,28 @@
 #include <boost/network/protocol/http/support/is_http.hpp>
 #include <boost/static_assert.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct unsupported_tag;
+template <class Tag>
+struct unsupported_tag;
 
-    template <class Tag>
-    struct resolver :
-        mpl::if_<
-            mpl::and_<
-                is_tcp<Tag>,
-                is_http<Tag>
-            >,
-            boost::asio::ip::tcp::resolver,
-            typename mpl::if_<
-                mpl::and_<
-                    is_udp<Tag>,
-                    is_http<Tag>
-                >,
-                boost::asio::ip::udp::resolver,
-                unsupported_tag<Tag>
-            >::type
-        >
-    {
-        BOOST_STATIC_ASSERT((
-            mpl::not_<
-                mpl::and_<
-                    is_udp<Tag>,
-                    is_tcp<Tag>
-                >
-            >::value
-            ));
-    };
+template <class Tag>
+struct resolver
+    : mpl::if_<mpl::and_<is_tcp<Tag>, is_http<Tag> >,
+               boost::asio::ip::tcp::resolver,
+               typename mpl::if_<mpl::and_<is_udp<Tag>, is_http<Tag> >,
+                                 boost::asio::ip::udp::resolver,
+                                 unsupported_tag<Tag> >::type> {
+  BOOST_STATIC_ASSERT(
+      (mpl::not_<mpl::and_<is_udp<Tag>, is_tcp<Tag> > >::value));
+};
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_TRAITS_RESOLVER_20091214
-
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_TRAITS_RESOLVER_20091214

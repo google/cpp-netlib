@@ -24,8 +24,11 @@ if (Boost_FOUND)
         target_link_libraries(cpp-netlib-${test}
             ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} cppnetlib-uri)
         if (OPENSSL_FOUND)
-            target_link_libraries(cpp-netlib-${test} ${OPENSSL_LIBRARIES})
+          target_link_libraries(cpp-netlib-${test} ${OPENSSL_LIBRARIES})
         endif()
+        if (${CMAKE_CXX_COMPILER_ID} MATCHES GNU AND ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+		  target_link_libraries(cpp-netlib-${test} ws2_32)
+		endif()
         set_target_properties(cpp-netlib-${test}
             PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CPP-NETLIB_BINARY_DIR}/tests)
         add_test(cpp-netlib-${test}

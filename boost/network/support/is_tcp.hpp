@@ -11,16 +11,18 @@
 #include <boost/mpl/not.hpp>
 #include <boost/static_assert.hpp>
 
-namespace boost { namespace network {
-    
-    template <class Tag, class Enable = void>
-    struct is_tcp : mpl::false_ {};
-    
-    template <class Tag>
-    struct is_tcp<Tag, typename enable_if<typename Tag::is_tcp>::type> : mpl::true_ {};
-    
-} // namespace network
+namespace boost {
+namespace network {
 
-} // namespace boost
+template <class Tag, class Enable = void>
+struct is_tcp : mpl::false_ {};
 
-#endif // BOOST_NETWORK_SUPPORT_IS_TCP_HPP_20100622
+template <class Tag>
+struct is_tcp<Tag,
+              typename enable_if<typename Tag::is_tcp>::type> : mpl::true_ {};
+
+}  // namespace network
+
+}  // namespace boost
+
+#endif  // BOOST_NETWORK_SUPPORT_IS_TCP_HPP_20100622

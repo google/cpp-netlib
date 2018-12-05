@@ -12,16 +12,18 @@
 #include <boost/mpl/not.hpp>
 #include <boost/static_assert.hpp>
 
-namespace boost { namespace network {
+namespace boost {
+namespace network {
 
-    template <class Tag, class Enable = void>
-    struct is_udp : mpl::false_ {};
-    
-    template <class Tag>
-    struct is_udp<Tag, typename enable_if<typename Tag::is_udp>::type> : mpl::true_ {};
-    
-} // namespace network
+template <class Tag, class Enable = void>
+struct is_udp : mpl::false_ {};
 
-} // namespace boost
+template <class Tag>
+struct is_udp<Tag,
+              typename enable_if<typename Tag::is_udp>::type> : mpl::true_ {};
 
-#endif // BOOST_NETWORK_SUPPORT_IS_UDP_HPP_20100622
+}  // namespace network
+
+}  // namespace boost
+
+#endif  // BOOST_NETWORK_SUPPORT_IS_UDP_HPP_20100622

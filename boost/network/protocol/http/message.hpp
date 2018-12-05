@@ -20,128 +20,118 @@
 #include <boost/network/tags.hpp>
 #include <string>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    /// base class for HTTP messages (requests and responses)
-    template <typename Tag>
-    struct message_impl : public basic_message<Tag> {
+/// base class for HTTP messages (requests and responses)
+template <typename Tag>
+struct message_impl : public basic_message<Tag> {
 
-            typedef typename string<Tag>::type string_type;
+  typedef typename string<Tag>::type string_type;
 
-            /// escapes URL-encoded strings (a%20value+with%20spaces)
-            static string_type const url_decode(string_type const & str);
-        
-            /// encodes strings so that they are safe for URLs (with%20spaces)
-            static string_type const url_encode(string_type const & str);
-        
-            /// builds an HTTP query string from a collection of query parameters
-            static string_type const make_query_string(typename query_container<Tag>::type const & query_params);
-            
-            /**
-             * creates a "Set-Cookie" header
-             *
-             * @param name the name of the cookie
-             * @param value the value of the cookie
-             * @param path the path of the cookie
-             * @param has_max_age true if the max_age value should be set
-             * @param max_age the life of the cookie, in seconds (0 = discard)
-             *
-             * @return the new "Set-Cookie" header
-             */
-            static string_type const make_set_cookie_header(string_type const & name,
-                                                      string_type const & value,
-                                                      string_type const & path,
-                                                      bool const has_max_age = false,
-                                                      unsigned long const max_age = 0);
+  /// escapes URL-encoded strings (a%20value+with%20spaces)
+  static string_type const url_decode(string_type const &str);
 
-            /** decodes base64-encoded strings
-             *
-             * @param input base64 encoded string
-             * @param output decoded string ( may include non-text chars)
-             * @return true if successful, false if input string contains non-base64 symbols
-             */
-            static bool base64_decode(string_type const &input, string_type & output);
-        
-            /** encodes strings using base64
-             *
-             * @param input arbitrary string ( may include non-text chars)
-             * @param output base64 encoded string
-             * @return true if successful
-             */
-            static bool base64_encode(string_type const &input, string_type & output);
+  /// encodes strings so that they are safe for URLs (with%20spaces)
+  static string_type const url_encode(string_type const &str);
 
-    protected:
-        mutable string_type version_;
-        mutable boost::uint16_t status_;
-        mutable string_type status_message_;
+  /// builds an HTTP query string from a collection of query parameters
+  static string_type const make_query_string(
+      typename query_container<Tag>::type const &query_params);
 
-    private:
-        typedef basic_message<Tag> base_type;
+  /**
+   * creates a "Set-Cookie" header
+   *
+   * @param name the name of the cookie
+   * @param value the value of the cookie
+   * @param path the path of the cookie
+   * @param has_max_age true if the max_age value should be set
+   * @param max_age the life of the cookie, in seconds (0 = discard)
+   *
+   * @return the new "Set-Cookie" header
+   */
+  static string_type const make_set_cookie_header(
+      string_type const &name, string_type const &value,
+      string_type const &path, bool const has_max_age = false,
+      unsigned long const max_age = 0);
 
-    public:
+  /** decodes base64-encoded strings
+   *
+   * @param input base64 encoded string
+   * @param output decoded string ( may include non-text chars)
+   * @return true if successful, false if input string contains non-base64
+   *symbols
+   */
+  static bool base64_decode(string_type const &input, string_type &output);
 
-        message_impl()
-            : base_type(), version_(), status_(0u), status_message_()
-        {}
+  /** encodes strings using base64
+   *
+   * @param input arbitrary string ( may include non-text chars)
+   * @param output base64 encoded string
+   * @return true if successful
+   */
+  static bool base64_encode(string_type const &input, string_type &output);
 
-        message_impl(message_impl const & other) 
-            : base_type(other), version_(other.version_), status_(other.status_), status_message_(other.status_message_)
-        {}
+ protected:
+  mutable string_type version_;
+  mutable boost::uint16_t status_;
+  mutable string_type status_message_;
 
-        void version(string_type const & version) const {
-            version_ = version;
-        }
+ private:
+  typedef basic_message<Tag> base_type;
 
-        string_type const version() const {
-            return version_;
-        }
+ public:
+  message_impl() : base_type(), version_(), status_(0u), status_message_() {}
 
-        void status(boost::uint16_t status) const {
-            status_ = status;
-        }
+  message_impl(message_impl const &other)
+      : base_type(other),
+        version_(other.version_),
+        status_(other.status_),
+        status_message_(other.status_message_) {}
 
-        boost::uint16_t status() const {
-            return status_;
-        }
+  void version(string_type const &version) const { version_ = version; }
 
-        void status_message(string_type const & status_message) const {
-            status_message_ = status_message;
-        }
+  string_type const version() const { return version_; }
 
-        string_type const status_message() const {
-            return status_message_;
-        }
+  void status(boost::uint16_t status) const { status_ = status; }
 
-        message_impl & operator=(message_impl rhs) {
-            rhs.swap(*this);
-            return *this;
-        }
+  boost::uint16_t status() const { return status_; }
 
-        void swap(message_impl & other) {
-            base_type & base_ref(other),
-                & this_ref(*this);
-            std::swap(this_ref, base_ref);
-            std::swap(status_, other.status_);
-            std::swap(status_message_, other.status_message_);
-            std::swap(version_, other.version_);
-        }
+  void status_message(string_type const &status_message) const {
+    status_message_ = status_message;
+  }
 
-    };
+  string_type const status_message() const { return status_message_; }
 
-    template <class Tag>
-    inline void swap(message_impl<Tag> & lhs, message_impl<Tag> & rhs) {
-        lhs.swap(rhs);
-    }
+  message_impl &operator=(message_impl rhs) {
+    rhs.swap(*this);
+    return *this;
+  }
 
-    typedef message_impl<tags::http_default_8bit_tcp_resolve> message;
+  void swap(message_impl &other) {
+    base_type &base_ref(other), &this_ref(*this);
+    std::swap(this_ref, base_ref);
+    std::swap(status_, other.status_);
+    std::swap(status_message_, other.status_message_);
+    std::swap(version_, other.version_);
+  }
+};
 
-} // namespace http
+template <class Tag>
+inline void swap(message_impl<Tag> &lhs, message_impl<Tag> &rhs) {
+  lhs.swap(rhs);
+}
 
-} // namespace network 
+typedef message_impl<tags::http_default_8bit_tcp_resolve> message;
 
-} // namespace boost
+}  // namespace http
+
+}  // namespace network
+
+}  // namespace boost
 
 // import implementation file
 #include <boost/network/protocol/http/impl/message.ipp>
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_HPP
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_HPP

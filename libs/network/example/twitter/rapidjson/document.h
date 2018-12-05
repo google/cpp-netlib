@@ -701,7 +701,7 @@ public:
 	GenericDocument& ParseStream(Stream& stream) {
 		ValueType::SetNull(); // Remove existing root if exist
 		GenericReader<Encoding> reader;
-		if (reader.Parse<parseFlags>(stream, *this)) {
+		if (reader.template Parse<parseFlags>(stream, *this)) {
 			RAPIDJSON_ASSERT(stack_.GetSize() == sizeof(ValueType)); // Got one and only one root object
 			this->RawAssign(*stack_.template Pop<ValueType>(1));
 			parseError_ = 0;

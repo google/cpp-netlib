@@ -10,14 +10,17 @@
 #include <boost/network/tags.hpp>
 #include <boost/network/message/directives/detail/string_directive.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    BOOST_NETWORK_STRING_DIRECTIVE(uri, uri_, message.uri(uri_), message.uri=uri_);
+BOOST_NETWORK_STRING_DIRECTIVE(uri, uri_, message.uri(uri_),
+                               message.uri = uri_);
 
-} // namespace http
+}  // namespace http
 
-} // namespace network 
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_DIRECTIVES_URI_HPP_20100620
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_DIRECTIVES_URI_HPP_20100620

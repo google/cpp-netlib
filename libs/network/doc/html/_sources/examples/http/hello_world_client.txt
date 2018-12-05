@@ -87,7 +87,7 @@ perform the request via HTTP:
     http::client client;
     http::client::request request("http://my.webservice.com/");
     http::client::response =
-        client.post(request, "application/xml", some_xml_string);
+        client.post(request, some_xml_string, "application/xml");
     std::data = body(response);
 
 The next set of examples show some more practical applications using

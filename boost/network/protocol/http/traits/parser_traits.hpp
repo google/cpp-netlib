@@ -12,46 +12,48 @@
 #ifndef BOOST_NETWORK_PROTOCOL_HTTP_PARSER_TRAITS_HPP
 #define BOOST_NETWORK_PROTOCOL_HTTP_PARSER_TRAITS_HPP
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-        struct status_message_text;
+template <class Tag>
+struct status_message_text;
 
-    template <class Tag>
-        struct method;
+template <class Tag>
+struct method;
 
-    template <class Tag>
-        struct resource;
+template <class Tag>
+struct resource;
 
-    template <class Tag>
-        struct query_string;
+template <class Tag>
+struct query_string;
 
-    template <class Tag>
-        struct header_name;
+template <class Tag>
+struct header_name;
 
-    template <class Tag>
-        struct header_value;
+template <class Tag>
+struct header_value;
 
-    template <class Tag>
-        struct query_name;
+template <class Tag>
+struct query_name;
 
-    template <class Tag>
-        struct query_value;
+template <class Tag>
+struct query_value;
 
-    template <class Tag>
-        struct cookie_name;
+template <class Tag>
+struct cookie_name;
 
-    template <class Tag>
-        struct cookie_value;
+template <class Tag>
+struct cookie_value;
 
-    template <class Tag>
-        struct post_content;
+template <class Tag>
+struct post_content;
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
 // Include implementation files
 #include <boost/network/protocol/http/traits/impl/status_message.ipp>
@@ -66,5 +68,4 @@ namespace boost { namespace network { namespace http {
 #include <boost/network/protocol/http/traits/impl/cookie_value.ipp>
 #include <boost/network/protocol/http/traits/impl/post_content.ipp>
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_PARSER_TRAITS_HPP
-
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_PARSER_TRAITS_HPP

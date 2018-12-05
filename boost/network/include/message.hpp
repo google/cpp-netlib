@@ -11,5 +11,4 @@
 #include <boost/network/tags.hpp>
 #include <boost/network/message.hpp>
 
-#endif // BOOST_NETWORK_INCLUDE_MESSAGE_HPP_
-
+#endif  // BOOST_NETWORK_INCLUDE_MESSAGE_HPP_

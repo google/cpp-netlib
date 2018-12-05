@@ -1,19 +1,21 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tag metafunctions &mdash; cpp-netlib v0.9.4</title>
-    <link rel="stylesheet" href="../_static/cpp-netlib.css" type="text/css" />
+    <title>Tag metafunctions &mdash; cpp-netlib v0.11.1</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.9.4',
+        VERSION:     '0.11.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,55 +24,40 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="cpp-netlib v0.9.4" href="../index.html" />
+    <link rel="top" title="cpp-netlib v0.11.1" href="../index.html" />
     <link rel="up" title="Techniques" href="../techniques.html" />
     <link rel="next" title="Directives" href="directives.html" />
     <link rel="prev" title="Techniques" href="../techniques.html" />
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-19815738-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
 
   </head>
   <body>
 
-    <div class="document">
-  <div id="custom-doc" class="yui-t4">
-    <div id="hd">
-      <h1><a href="../index.html">cpp-netlib v0.9.4</a></h1>
-      <div id="global-nav">
-        <a title="Home page" href="../index.html">Home</a>  |
-        <a title="Table of contents" href="../contents.html">Table of contents</a> |
-	<a title="What's new" href="../whats_new.html">What's new</a> |
-	<a title="Getting started" href="../getting_started.html">Getting started</a> |
-	<a title="Examples" href="../examples.html">Examples</a> |
-	<a title="In depth" href="../in_depth.html">In depth</a> |
-	<a title="Reference" href="../reference.html">Reference</a>
-      </div>
-      <div class="nav">
-    &laquo; <a href="../techniques.html" title="Techniques">previous</a>
-     |
-    <a href="../techniques.html" title="Techniques" accesskey="U">up</a>
-   |
-    <a href="directives.html" title="Directives">next</a> &raquo;</div>
-    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="directives.html" title="Directives"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../techniques.html" title="Techniques"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">cpp-netlib v0.11.1</a> &raquo;</li>
+          <li><a href="../techniques.html" accesskey="U">Techniques</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-    <div id="bd">
-      <div id="yui-main">
-        <div class="yui-b">
-          <div class="yui-g" id="techniques-tag_metafunctions">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
             
-  <div class="section" id="cpp-netlib-tag-metafunctions">
-<h1>Tag metafunctions<a class="headerlink" href="#cpp-netlib-tag-metafunctions" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tag-metafunctions">
+<h1>Tag metafunctions<a class="headerlink" href="#tag-metafunctions" title="Permalink to this headline">¶</a></h1>
 <p>Sometimes you want to vary a function or a type&#8217;s behavior based on a
 static parameter. In the <tt class="xref py py-mod docutils literal"><span class="pre">cpp-netlib</span></tt> there are a number of
 things you might want to change based on some such parameter &#8211; like
@@ -81,8 +68,8 @@ header-only manner is to use tag-based metafunctions.</p>
 defining type traits. In the <tt class="xref py py-mod docutils literal"><span class="pre">cpp-netlib</span></tt> however the type traits
 are defined on opaque tag types which serve to associate results to a
 family of metafunctions.</p>
-<div class="section" id="cpp-netlib-template-specialization">
-<h2>Template Specialization<a class="headerlink" href="#cpp-netlib-template-specialization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="template-specialization">
+<h2>Template Specialization<a class="headerlink" href="#template-specialization" title="Permalink to this headline">¶</a></h2>
 <p>To illustrate this point, let&#8217;s define a tag <tt class="docutils literal"><span class="pre">default_</span></tt> which we use
 to denote the default implementation of a certain type <tt class="docutils literal"><span class="pre">foo</span></tt>. For
 instance we decide that the default string type we will use for
@@ -106,8 +93,8 @@ translate to:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="cpp-netlib-template-metaprogramming">
-<h2>Template Metaprogramming<a class="headerlink" href="#cpp-netlib-template-metaprogramming" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="template-metaprogramming">
+<h2>Template Metaprogramming<a class="headerlink" href="#template-metaprogramming" title="Permalink to this headline">¶</a></h2>
 <p>Starting with version 0.7, the tag dispatch mechanism changed slightly to use
 <a class="reference external" href="http://www.boost.org/libs/mpl/index.html">Boost.MPL</a>. The idea is still the same, although we can get a little smarter
 than just using template specializations. Instead of just defining an opaque
@@ -163,8 +150,8 @@ metafunction itself, it contains a definition of the resulting <tt class="docuti
 <p>You can see the real definition of the <tt class="docutils literal"><span class="pre">string</span></tt> metafunction in
 <tt class="docutils literal"><span class="pre">boost/network/traits/string.hpp</span></tt>.</p>
 </div>
-<div class="section" id="cpp-netlib-using-tags">
-<h2>Using Tags<a class="headerlink" href="#cpp-netlib-using-tags" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-tags">
+<h2>Using Tags<a class="headerlink" href="#using-tags" title="Permalink to this headline">¶</a></h2>
 <p>Once we have the defined tag, we can then use this in the definition of our
 types. In the definition of the type <tt class="docutils literal"><span class="pre">foo</span></tt> we use this type function
 <tt class="docutils literal"><span class="pre">string</span></tt> and pass the tag type parameter to determine what to use as
@@ -222,10 +209,6 @@ flexible.</p>
           </div>
         </div>
       </div>
-      
-        
-        <div class="yui-b" id="sidebar">
-          
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../contents.html">Table Of Contents</a></h3>
@@ -238,36 +221,16 @@ flexible.</p>
 </li>
 </ul>
 
-  <h3>Browse</h3>
-  <ul>
-    
-      <li>Prev: <a href="../techniques.html">Techniques</a></li>
-    
-    
-      <li>Next: <a href="directives.html">Directives</a></li>
-    
-  </ul>
-  <h3>You are here:</h3>
-  <ul>
-      <li>
-        <a href="../index.html">cpp-netlib v0.9.4</a>
-        
-          <ul><li><a href="../techniques.html">Techniques</a>
-        
-        <ul><li>Tag metafunctions</li></ul>
-        </li></ul>
-      </li>
-  </ul>
-
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/techniques/tag_metafunctions.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../techniques.html"
+                        title="previous chapter">Techniques</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="directives.html"
+                        title="next chapter">Directives</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -279,25 +242,25 @@ flexible.</p>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-        </div>
-      
-    </div>
-
-    <div id="ft">
-      <div class="nav">
-    &laquo; <a href="../techniques.html" title="Techniques">previous</a>
-     |
-    <a href="../techniques.html" title="Techniques" accesskey="U">up</a>
-   |
-    <a href="directives.html" title="Directives">next</a> &raquo;</div>
-    </div>
-  </div>
-
       <div class="clearer"></div>
     </div>
-  <div class="footer">
-      documentation automatically generated by <a href="http://sphinx.pocoo.org">Sphinx</a> | style mostly stolen from <a href="http://lettuce.it">lettuce.it</a>
-  </div>
-
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="directives.html" title="Directives"
+             >next</a></li>
+        <li class="right" >
+          <a href="../techniques.html" title="Techniques"
+             >previous</a> |</li>
+        <li><a href="../contents.html">cpp-netlib v0.11.1</a> &raquo;</li>
+          <li><a href="../techniques.html" >Techniques</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2014, Glyn Matthews, Dean Michael Berris; 2013 Google, Inc..
+      Last updated on Sep 08, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
   </body>
 </html>

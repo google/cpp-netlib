@@ -18,56 +18,49 @@
 #include <boost/network/message/transformers.hpp>
 #include <boost/network/message/directives.hpp>
 
-namespace boost { namespace network {
-    
-    template <class M>
-    struct Message 
-        : DefaultConstructible<M>, CopyConstructible<M>, Assignable<M> {
-        typedef typename M::string_type string_type;
-        typedef typename M::headers_container_type headers_container_type;
+namespace boost {
+namespace network {
 
-        BOOST_CONCEPT_USAGE(Message) {
-            M message_;
-            swap(message, message_);
+template <class M>
+struct Message : DefaultConstructible<M>, CopyConstructible<M>, Assignable<M> {
+  typedef typename M::string_type string_type;
+  typedef typename M::headers_container_type headers_container_type;
 
-            typedef typename traits::body<M>::type body_type;
-            typedef typename traits::source<M>::type source_type;
-            typedef typename traits::destination<M>::type destination_type;
+  BOOST_CONCEPT_USAGE(Message) {
+    M message_;
+    swap(message, message_);
 
-            typedef typename traits::header_key<M>::type header_key_type;
-            typedef typename traits::header_value<M>::type header_value_type;
+    typedef typename traits::body<M>::type body_type;
+    typedef typename traits::source<M>::type source_type;
+    typedef typename traits::destination<M>::type destination_type;
 
-            headers_container_type headers_ = headers(message);
-            string_type body_ = body(message);
-            string_type source_ = source(message);
-            string_type destination_ = destination(message);
+    headers_container_type headers_ = headers(message);
+    string_type body_ = body(message);
+    string_type source_ = source(message);
+    string_type destination_ = destination(message);
 
-            message << source(source_type())
-                << destination(destination_type())
-                << header(string_type(), string_type())
-                << body(body_type());
+    message << source(source_type()) << destination(destination_type())
+            << header(string_type(), string_type()) << body(body_type());
 
-            add_header(message, string_type(), string_type());
-            remove_header(message, string_type());
-            clear_headers(message);
-            source(message, source_type());
-            destination(message, destination_type());
-            body(message, body_type());
+    add_header(message, string_type(), string_type());
+    remove_header(message, string_type());
+    clear_headers(message);
+    source(message, source_type());
+    destination(message, destination_type());
+    body(message, body_type());
 
-            (void)headers_;
-            (void)body_;
-            (void)source_;
-            (void)destination_;
-        }
+    (void)headers_;
+    (void)body_;
+    (void)source_;
+    (void)destination_;
+  }
 
-    private:
+ private:
+  M message;
+};
 
-        M message;
-    };
+}  // namespace network
 
-} // namespace network
+}  // namespace boost
 
-} // namespace boost
-
-#endif // BOOST_NETWORK_MESSAGE_MESSAGE_CONCEPT_HPP_20100903
-
+#endif  // BOOST_NETWORK_MESSAGE_MESSAGE_CONCEPT_HPP_20100903

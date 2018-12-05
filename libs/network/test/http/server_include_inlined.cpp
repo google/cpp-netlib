@@ -27,34 +27,34 @@ typedef http::server<hello_world> server;
 
 struct hello_world {
 
-    void operator()(server::request const & request, server::response & response) {
-        static server::response::header_type header = {"Connection", "close"};
-        response = server::response::stock_reply(server::response::ok, "Hello, World!");
-        response.headers.push_back(header);
-        assert(response.status == server::response::ok);
-        assert(response.headers.size() == 3);
-        assert(response.content == "Hello, World!");
-    }
+  void operator()(server::request const& request, server::response& response) {
+    static server::response::header_type header = {"Connection", "close"};
+    response =
+        server::response::stock_reply(server::response::ok, "Hello, World!");
+    response.headers.push_back(header);
+    assert(response.status == server::response::ok);
+    assert(response.headers.size() == 3);
+    assert(response.content == "Hello, World!");
+  }
 
-    void log(string const & data) {
-        cerr << data << endl;
-        abort();
-    }
-
+  void log(string const& data) {
+    cerr << data << endl;
+    abort();
+  }
 };
 
-int main(int argc, char * argv[]) {
-    hello_world handler;
-    std::string port = "8000";
-    if (argc > 1) port = argv[1];
-    server server_("127.0.0.1", port, handler, http::_reuse_address=true);
-    boost::thread runner(boost::bind(&server::run, &server_));
-    try {
-        server_.stop();
-        runner.join();
-    } catch (...) {
-        /* ignore all errors */
-    }
-    return EXIT_SUCCESS;
+int main(int argc, char* argv[]) {
+  hello_world handler;
+  std::string port = "8000";
+  if (argc > 1) port = argv[1];
+  server server_("127.0.0.1", port, handler, http::_reuse_address = true);
+  boost::thread runner(boost::bind(&server::run, &server_));
+  try {
+    server_.stop();
+    runner.join();
+  }
+  catch (...) {
+    /* ignore all errors */
+  }
+  return EXIT_SUCCESS;
 }
-

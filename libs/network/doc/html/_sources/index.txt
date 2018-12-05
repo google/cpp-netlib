@@ -2,11 +2,12 @@
 .. rubric:: Straightforward network programming in modern C++
 
 .. :Authors: Glyn Matthews <glyn.matthews@gmail.com>
-.. 	  Dean Michael Berris <mikhailberis@gmail.com>
-.. :Date: Feb 22, 2012
-.. :Version: 0.9.4
+.. 	  Dean Michael Berris <dberris@google.com>
+.. :Date: 2014-10-01
+.. :Version: 0.11.0
 .. :Description: Complete user documentation, with examples, for the :mod:`cpp-netlib`.
-.. :Copyright: Copyright Glyn Matthews, Dean Michael Berris 2008-2012.
+.. :Copyright: Copyright Glyn Matthews, Dean Michael Berris 2008-2013.
+..             Copyrigh 2013 Google, Inc.
 ..             Distributed under the Boost Software License, Version
 ..             1.0. (See accompanying file LICENSE_1_0.txt or copy at
 ..             http://www.boost.org/LICENSE_1_0.txt)
@@ -14,14 +15,19 @@
 Getting cpp-netlib
 ==================
 
+You can find out more about the :mod:`cpp-netlib` project at
+http://cpp-netlib.org/.
+
 **Download**
 
-You can download the latest releases of the library at:
+You can get the latest official version of the library from the official
+project website at:
 
-    http://github.com/cpp-netlib/cpp-netlib/downloads
+    http://cpp-netlib.org/
 
-You can find more information about the progress of the development by
-checking our GitHub_ project page at:
+This version of :mod:`cpp-netlib` is tagged as cpp-netlib-0.11.0 in the GitHub_
+repository. You can find more information about the progress of the development
+by checking our GitHub_ project page at:
 
     http://github.com/cpp-netlib/cpp-netlib
 
@@ -39,25 +45,12 @@ You can also file issues on the Github_ issue tracker at:
 We are a growing community and we are happy to accept new
 contributions and ideas.
 
-Boost
-=====
-
-The :mod:`cpp-netlib` is being developed for eventual submission to Boost_.
-
-.. image:: _static/boost.png
-   	   :align: left
-
 C++ Network Library
 ===================
 
-The :mod:`cpp-netlib` is a library that provides application layer
-protocol support using modern C++ techniques.  It is light-weight,
-fast, portable and is intended to be as easy to configure as possible.
-
-It is developed by people linked to the Boost_ community and will soon
-be submitted for review into Boost.  A presentation about
-:mod:`cpp-netlib` was given at `BoostCon 2010`_, for which the
-`slides`_ and the `paper`_ can be found on-line.
+:mod:`cpp-netlib` is a library collection that provides application layer
+protocol support using modern C++ techniques.  It is light-weight, fast,
+portable and is intended to be as easy to configure as possible.
 
 Hello, world!
 =============
@@ -68,7 +61,7 @@ network applications with the minimum of fuss.
 An HTTP server-client example can be written in tens of lines of code.
 The client is as simple as this:
 
-.. code-block:: c++
+.. code-block:: cpp
 
     using namespace boost::network;
     using namespace boost::network::http;
@@ -81,7 +74,7 @@ The client is as simple as this:
 
 And the corresponding server code is listed below:
 
-.. code-block:: c++
+.. code-block:: cpp
 
     namespace http = boost::network::http;
 
@@ -102,7 +95,10 @@ And the corresponding server code is listed below:
 
     int main(int arg, char * argv[]) {
         handler handler_;
-        http_server server_("0.0.0.0", "8000", handler_);
+        http_server::options options(handler_);
+        http_server server_(
+            options.address("0.0.0.0")
+                   .port("8000"));
         server_.run();
     }
 
@@ -114,6 +110,7 @@ Want to learn more?
     * :ref:`Find out what's new <whats_new>`
     * :ref:`Study the library in more depth <in_depth>`
     * :ref:`Discover more through the full reference <reference>`
+    * :ref:`Full table of contents <contents>`
 
 .. warning:: Be aware that not all features are stable.  The generic
    	     message design is under review and the URI and HTTP
@@ -123,9 +120,5 @@ Want to learn more?
 
 
 .. _Boost: http://www.boost.org/
-.. _`BoostCon 2010`: http://www.boostcon.com/
-.. _`slides`: http://www.filetolink.com/b0e89d06
-.. _`paper`: http://github.com/downloads/mikhailberis/cpp-netlib-boostcon-paper/cpp-netlib.pdf
-.. _Git: http://git-scm.com/
 .. _GitHub: http://github.com/
 

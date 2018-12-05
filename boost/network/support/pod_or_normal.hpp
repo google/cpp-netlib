@@ -10,16 +10,20 @@
 #include <boost/network/support/is_pod.hpp>
 #include <boost/mpl/if.hpp>
 
-namespace boost { namespace network {
+namespace boost {
+namespace network {
 
-    template <class Tag, class Enable = void>
-    struct pod_or_normal { typedef tags::normal type; };
-    
-    template <class Tag>
-    struct pod_or_normal<Tag, typename enable_if<typename Tag::is_pod>::type> : tags::pod {};
-    
+template <class Tag, class Enable = void>
+struct pod_or_normal {
+  typedef tags::normal type;
+};
+
+template <class Tag>
+struct pod_or_normal<
+    Tag, typename enable_if<typename Tag::is_pod>::type> : tags::pod {};
+
 } /* network */
-    
+
 } /* boost */
 
 #endif /* BOOST_NETWORK_PROTOCOL_HTTP_SUPPORT_POD_OR_NORMAL_HPP_20101128 */

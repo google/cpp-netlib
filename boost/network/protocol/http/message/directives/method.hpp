@@ -6,16 +6,18 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-namespace boost { namespace network { namespace http {
-    
-    BOOST_NETWORK_STRING_DIRECTIVE(method, method_, 
-        message.method(method_),
-        message.method=method_);
+namespace boost {
+namespace network {
+namespace http {
+
+BOOST_NETWORK_STRING_DIRECTIVE(method, method_, message.method(method_),
+                               message.method = method_);
 
 } /* http */
-    
+
 } /* network */
-    
+
 } /* booet */
 
-#endif /* BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_DIRECTIVES_METHOD_HPP_20101120 */
+#endif /* BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_DIRECTIVES_METHOD_HPP_20101120 \
+          */

@@ -10,24 +10,22 @@
 #include <boost/network/uri/decode.hpp>
 #include <iterator>
 
-
 using namespace boost::network;
 
-
 BOOST_AUTO_TEST_CASE(encoding_test) {
-    const std::string unencoded(" !\"#$%&\'()*");
-    const std::string encoded("%20%21%22%23%24%25%26%27%28%29%2A");
+  const std::string unencoded(" !\"#$%&\'()*");
+  const std::string encoded("%20%21%22%23%24%25%26%27%28%29%2A");
 
-    std::string instance;
-    uri::encode(unencoded, std::back_inserter(instance));
-    BOOST_CHECK_EQUAL(instance, encoded);
+  std::string instance;
+  uri::encode(unencoded, std::back_inserter(instance));
+  BOOST_CHECK_EQUAL(instance, encoded);
 }
 
 BOOST_AUTO_TEST_CASE(decoding_test) {
-    const std::string unencoded(" !\"#$%&\'()*");
-    const std::string encoded("%20%21%22%23%24%25%26%27%28%29%2A");
+  const std::string unencoded(" !\"#$%&\'()*");
+  const std::string encoded("%20%21%22%23%24%25%26%27%28%29%2A");
 
-    std::string instance;
-    uri::decode(encoded, std::back_inserter(instance));
-    BOOST_CHECK_EQUAL(instance, unencoded);
+  std::string instance;
+  uri::decode(encoded, std::back_inserter(instance));
+  BOOST_CHECK_EQUAL(instance, unencoded);
 }

@@ -6,66 +6,59 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_response;
+template <class Tag>
+struct basic_response;
 
-    template <class Tag>
-    struct basic_request;
+template <class Tag>
+struct basic_request;
 
-    namespace impl {
+namespace impl {
 
-        template <class Message>
-        struct body_wrapper {
-            typedef typename string<typename Message::tag>::type string_type;
-            Message const & message_;
-            explicit body_wrapper(Message const & message)
-                : message_(message) {}
-            body_wrapper(body_wrapper const & other)
-                : message_(other.message_) {}
+template <class Message>
+struct body_wrapper {
+  typedef typename string<typename Message::tag>::type string_type;
+  Message const& message_;
+  explicit body_wrapper(Message const& message) : message_(message) {}
+  body_wrapper(body_wrapper const& other) : message_(other.message_) {}
 
-            operator string_type () const {
-                return message_.body();
-            }
+  operator string_type() const { return message_.body(); }
 
-            size_t size() const {
-                return message_.body().size();
-            }
+  size_t size() const { return message_.body().size(); }
 
-            boost::iterator_range<typename string_type::const_iterator>
-            range() const 
-            {
-                return boost::make_iterator_range(message_.body());
-            }
-        };
-        
-        template <class Message>
-        inline std::ostream & operator<<(std::ostream & os, body_wrapper<Message> const & body) {
-            os << static_cast<typename body_wrapper<Message>::string_type>(body);
-            return os;
-        }
+  boost::iterator_range<typename string_type::const_iterator> range() const {
+    return boost::make_iterator_range(message_.body());
+  }
+};
 
-    } // namespace impl
+template <class Message>
+inline std::ostream& operator<<(std::ostream& os,
+                                body_wrapper<Message> const& body) {
+  os << static_cast<typename body_wrapper<Message>::string_type>(body);
+  return os;
+}
 
-    template <class Tag>
-    inline
-    typename impl::body_wrapper<basic_response<Tag> > 
-    body(basic_response<Tag> const & message) {
-        return impl::body_wrapper<basic_response<Tag> >(message);
-    }
+}  // namespace impl
 
-    template <class Tag>
-    inline
-    typename impl::body_wrapper<basic_request<Tag> > 
-    body(basic_request<Tag> const & message) {
-        return impl::body_wrapper<basic_request<Tag> >(message);
-    }
+template <class Tag>
+inline typename impl::body_wrapper<basic_response<Tag> > body(
+    basic_response<Tag> const& message) {
+  return impl::body_wrapper<basic_response<Tag> >(message);
+}
 
-} // namespace http
+template <class Tag>
+inline typename impl::body_wrapper<basic_request<Tag> > body(
+    basic_request<Tag> const& message) {
+  return impl::body_wrapper<basic_request<Tag> >(message);
+}
 
-} // namespace network
+}  // namespace http
 
-} // namespace boost
+}  // namespace network
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_WRAPPERS_BODY_HPP_20100622
+}  // namespace boost
+
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_WRAPPERS_BODY_HPP_20100622

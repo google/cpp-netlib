@@ -37,69 +37,64 @@
 #include <boost/network/protocol/http/message/message_base.hpp>
 #include <boost/network/protocol/http/response_concept.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_response : public message_base<Tag>::type {
+template <class Tag>
+struct basic_response : public message_base<Tag>::type {
 
-        typedef typename string<Tag>::type string_type;
+  typedef typename string<Tag>::type string_type;
 
-    private:
-        typedef typename message_base<Tag>::type base_type;
+ private:
+  typedef typename message_base<Tag>::type base_type;
 
-    public:
+ public:
+  typedef Tag tag;
 
-        typedef Tag tag;
+  basic_response() : base_type() {}
 
-        basic_response()
-        : base_type()
-        {}
+  basic_response(basic_response const& other) : base_type(other) {}
 
-        basic_response(basic_response const & other)
-        : base_type(other)
-        {}
+  basic_response& operator=(basic_response rhs) {
+    rhs.swap(*this);
+    return *this;
+  };
 
-        basic_response & operator=(basic_response rhs) {
-            rhs.swap(*this);
-            return *this;
-        };
+  void swap(basic_response& other) {
+    base_type& base_ref(other), &this_ref(*this);
+    std::swap(this_ref, base_ref);
+  };
+};
 
-        void swap(basic_response & other) {
-            base_type & base_ref(other),
-                & this_ref(*this);
-            std::swap(this_ref, base_ref);
-        };
-    };
+template <class Tag>
+inline void swap(basic_response<Tag>& lhs, basic_response<Tag>& rhs) {
+  lhs.swap(rhs);
+}
 
-    template <class Tag>
-    inline void swap(basic_response<Tag> & lhs, basic_response<Tag> & rhs) {
-        lhs.swap(rhs);
-    }
+}  // namespace http
 
-} // namespace http
+}  // namespace network
 
-} // namespace network
-
-} // namespace boost
+}  // namespace boost
 
 #include <boost/network/protocol/http/impl/response.ipp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag, class Directive>
-    basic_response<Tag> & operator<<(
-        basic_response<Tag> & message,
-        Directive const & directive
-        )
-    {
-        directive(message);
-        return message;
-    }
+template <class Tag, class Directive>
+basic_response<Tag>& operator<<(basic_response<Tag>& message,
+                                Directive const& directive) {
+  directive(message);
+  return message;
+}
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_RESPONSE_HPP
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_RESPONSE_HPP

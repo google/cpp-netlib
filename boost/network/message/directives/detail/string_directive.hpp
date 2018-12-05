@@ -24,37 +24,36 @@
  *  setting the source of a message would look something like this given the
  *  BOOST_NETWORK_STRING_DIRECTIVE macro:
  *
- *      BOOST_NETWORK_STRING_DIRECTIVE(source, source_, 
+ *      BOOST_NETWORK_STRING_DIRECTIVE(source, source_,
  *          message.source(source_)
  *          , message.source=source_);
  *
  */
-    
+
 #ifndef BOOST_NETWORK_STRING_DIRECTIVE
 #define BOOST_NETWORK_STRING_DIRECTIVE(name, value, body, pod_body)         \
-    template <class ValueType>                                              \
-    struct name##_directive {                                               \
-        ValueType const & value;                                            \
-        explicit name##_directive(ValueType const & value_)                 \
-        : value(value_) {}                                                  \
-        name##_directive(name##_directive const & other)                    \
-        : value(other.value) {}                                             \
-        template <class Tag, template <class> class Message>                \
-        typename enable_if<is_pod<Tag>, void>::type                         \
-        operator()(Message<Tag> & message) const {                          \
-            pod_body;                                                       \
-        }                                                                   \
-        template <class Tag, template <class> class Message>                \
-        typename enable_if<mpl::not_<is_pod<Tag> >, void>::type             \
-        operator()(Message<Tag> & message) const {                          \
-            body;                                                           \
-        }                                                                   \
-    };                                                                      \
+  template <class ValueType>                                                \
+  struct name##_directive {                                                 \
+    ValueType const& value;                                                 \
+    explicit name##_directive(ValueType const& value_) : value(value_) {}   \
+    name##_directive(name##_directive const& other) : value(other.value) {} \
+    template <class Tag, template <class> class Message>                    \
+    typename enable_if<is_pod<Tag>, void>::type operator()(                 \
+        Message<Tag>& message) const {                                      \
+      pod_body;                                                             \
+    }                                                                       \
+    template <class Tag, template <class> class Message>                    \
+    typename enable_if<mpl::not_<is_pod<Tag> >, void>::type operator()(     \
+        Message<Tag>& message) const {                                      \
+      body;                                                                 \
+    }                                                                       \
+  };                                                                        \
                                                                             \
-    template <class T> inline name##_directive<T>                           \
-    name (T const & input) {                                                \
-        return name##_directive<T>(input);                                  \
-    }
+  template <class T>                                                        \
+  inline name##_directive<T> name(T const& input) {                         \
+    return name##_directive<T>(input);                                      \
+  }
 #endif /* BOOST_NETWORK_STRING_DIRECTIVE */
 
-#endif /* BOOST_NETWORK_MESSAGE_DIRECTIVES_DETAIL_STRING_DIRECTIVE_HPP_20100915 */
+#endif /* BOOST_NETWORK_MESSAGE_DIRECTIVES_DETAIL_STRING_DIRECTIVE_HPP_20100915 \
+          */

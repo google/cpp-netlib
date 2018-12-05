@@ -31,7 +31,7 @@ Concept`_, otherwise it chooses the `Normal Client Request Concept`_.
 Normal Client Request Concept
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A type models the Normal Client Request Concept if it models the `Message 
+A type models the Normal Client Request Concept if it models the `Message
 Concept`_ and also supports the following constructs.
 
 **Legend**
@@ -118,13 +118,13 @@ and also supports the following constructs.
 | ``r.body``                    | ``S``  | The body of the request.            |
 +-------------------------------+--------+-------------------------------------+
 
-.. _Message Concept: message.html#message-concept
+.. _Message Concept: ../in_depth/message.html#message-concept
 
 Directives
 ----------
 
-This section details the provided directives that are provided by 
-:mod:`cpp-netlib`. The section was written to assume that an appropriately 
+This section details the provided directives that are provided by
+:mod:`cpp-netlib`. The section was written to assume that an appropriately
 constructed request instance is either of the following:
 
 .. code-block:: c++
@@ -152,24 +152,26 @@ Directives are meant to be used in the following manner:
 
     request << directive(...);
 
-.. warning:: There are two versions of directives, those that are applicable to
-   messages that support narrow strings (``std::string``) and those that are
-   applicable to messages that support wide strings (``std::wstring``). The
-   :mod:`cpp-netlib` implementation still does not convert wide strings into
-   UTF-8 encoded narrow strings. This will be implemented in subsequent
-   library releases.
+.. warning::
 
-   For now all the implemented directives are listed, even if some of them still
-   do not implement things correctly.
+    There are two versions of directives, those that are applicable to
+    messages that support narrow strings (``std::string``) and those that are
+    applicable to messages that support wide strings (``std::wstring``). The
+    :mod:`cpp-netlib` implementation still does not convert wide strings into
+    UTF-8 encoded narrow strings. This will be implemented in subsequent
+    library releases.
+
+    For now all the implemented directives are listed, even if some of them still
+    do not implement things correctly.
 
 *unspecified* ``source(std::string const & source_)``
-    Create a source directive with a ``std::string`` as a parameter, to be set 
+    Create a source directive with a ``std::string`` as a parameter, to be set
     as the source of the request.
 *unspecified* ``source(std::wstring const & source_)``
     Create a source directive with a ``std::wstring`` as a parameter, to be set
     as the source of the request.
 *unspecified* ``destination(std::string const & source_)``
-    Create a destination directive with a ``std::string`` as a parameter, to be 
+    Create a destination directive with a ``std::string`` as a parameter, to be
     set as the destination of the request.
 *unspecified* ``destination(std::wstring const & source_)``
     Create a destination directive with a ``std::wstring`` as a parameter, to be
@@ -200,7 +202,7 @@ Directives are meant to be used in the following manner:
 Modifiers
 ---------
 
-This section details the provided modifiers that are provided by 
+This section details the provided modifiers that are provided by
 :mod:`cpp-netlib`.
 
 ``template <class Tag> inline void source(basic_request<Tag> & request, typename string<Tag>::type const & source_)``
@@ -232,7 +234,7 @@ section assumes that the following using namespace directives are in
 effect:
 
 .. code-block:: c++
-    
+
     using namespace boost::network;
     using namespace boost::network::http;
 

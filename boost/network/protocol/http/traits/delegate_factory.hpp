@@ -9,7 +9,9 @@
 
 #include <boost/network/support/is_async.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
 namespace impl {
 
@@ -18,7 +20,8 @@ struct connection_delegate_factory;
 
 } /* impl */
 
-template <class Tag> struct unsupported_tag;
+template <class Tag>
+struct unsupported_tag;
 
 template <class Tag, class Enable = void>
 struct delegate_factory {
@@ -33,7 +36,5 @@ struct delegate_factory<Tag, typename enable_if<is_async<Tag> >::type> {
 } /* http */
 } /* network */
 } /* boost */
-
-
 
 #endif /* BOOST_NETWORK_PROTOCOL_HTTP_TRAITS_DELEGATE_FACTORY_HPP_20110819 */

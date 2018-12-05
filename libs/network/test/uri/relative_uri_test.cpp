@@ -12,7 +12,7 @@
 using namespace boost::network;
 
 BOOST_AUTO_TEST_CASE(relative_uri_test) {
-    // don't yet support relative URIs
-    uri::uri instance("example.com");
-    BOOST_REQUIRE(!uri::valid(instance));
+  // don't yet support relative URIs
+  uri::uri instance("example.com");
+  BOOST_REQUIRE(!uri::valid(instance));
 }

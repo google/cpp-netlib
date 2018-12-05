@@ -13,73 +13,75 @@
 #include <boost/network/protocol/http/tags.hpp>
 #include <boost/network/message/directives.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_response;
+template <class Tag>
+struct basic_response;
 
-    namespace impl {
+namespace impl {
 
-        template <class Tag, class T>
-        void source(basic_response<Tag> & response, T const & value, mpl::false_ const &) {
-            response << ::boost::network::source(value);
-        }
+template <class Tag, class T>
+void source(basic_response<Tag> &response, T const &value,
+            mpl::false_ const &) {
+  response << ::boost::network::source(value);
+}
 
-        template <class Tag, class T>
-        void source(basic_response<Tag> & response, T const & future, mpl::true_ const &) {
-            response.source(future);
-        }
+template <class Tag, class T>
+void source(basic_response<Tag> &response, T const &future,
+            mpl::true_ const &) {
+  response.source(future);
+}
 
-        template <class Tag, class T>
-        void source(basic_request<Tag> & request, T const & value, tags::server const &) {
-            request.source = value;
-        }
+template <class Tag, class T>
+void source(basic_request<Tag> &request, T const &value, tags::server const &) {
+  request.source = value;
+}
 
-        template <class Tag, class T>
-        void source(basic_request<Tag> & request, T const & value, tags::client const &) {
-            request << ::boost::network::source(value);
-        }
+template <class Tag, class T>
+void source(basic_request<Tag> &request, T const &value, tags::client const &) {
+  request << ::boost::network::source(value);
+}
+}
 
-    }
+template <class Tag, class T>
+inline void source(basic_response<Tag> &response, T const &value) {
+  impl::source(response, value, is_async<Tag>());
+}
 
-    template <class Tag, class T>
-    inline void
-    source(basic_response<Tag> & response, T const & value) {
-        impl::source(response, value, is_async<Tag>());
-    }
+template <class Tag, class T>
+inline void source_impl(basic_request<Tag> &request, T const &value,
+                        tags::server) {
+  impl::source(request, value, Tag());
+}
 
-    template <class Tag, class T>
-    inline void
-    source_impl(basic_request<Tag> & request, T const & value, tags::server) {
-        impl::source(request, value, Tag());
-    }
+template <class Tag, class T>
+inline void source_impl(basic_request<Tag> &request, T const &value,
+                        tags::client) {
+  impl::source(request, value, Tag());
+}
 
-    template <class Tag, class T>
-    inline void
-    source_impl(basic_request<Tag> & request, T const & value, tags::client) {
-        impl::source(request, value, Tag());
-    }
+template <class Tag, class T>
+inline void source(basic_request<Tag> &request, T const &value) {
+  source_impl(request, value, typename client_or_server<Tag>::type());
+}
 
-    template <class Tag, class T>
-    inline void
-    source(basic_request<Tag> & request, T const & value) {
-        source_impl(request, value, typename client_or_server<Tag>::type());
-    }
+}  // namespace http
 
-} // namespace http
+namespace impl {
 
-    namespace impl {
-        
-        template <class Message, class ValueType, class Async>
-        inline void source(Message const & message, ValueType const & source_, http::tags::http_server const &, Async const &) {
-            message.source = source_;
-        }
+template <class Message, class ValueType, class Async>
+inline void source(Message const &message, ValueType const &source_,
+                   http::tags::http_server const &, Async const &) {
+  message.source = source_;
+}
 
-    } /* impl */
+} /* impl */
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
 #include <boost/network/message/modifiers/source.hpp>
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_MODIFIER_SOURCE_HPP_20100624
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_MODIFIER_SOURCE_HPP_20100624

@@ -10,16 +10,18 @@
 #include <boost/network/tags.hpp>
 #include <boost/utility/enable_if.hpp>
 
-namespace boost { namespace network {
+namespace boost {
+namespace network {
 
-    template <class Tag, class Enable = void>
-    struct is_async : mpl::false_ {};
-    
-    template <class Tag>
-    struct is_async<Tag, typename enable_if<typename Tag::is_async>::type> : mpl::true_ {};
+template <class Tag, class Enable = void>
+struct is_async : mpl::false_ {};
 
-} // namespace network
+template <class Tag>
+struct is_async<
+    Tag, typename enable_if<typename Tag::is_async>::type> : mpl::true_ {};
 
-} // namespace boost
+}  // namespace network
 
-#endif //BOOST_NETWORK_SUPPORT_IS_ASYNC_HPP_2010608
+}  // namespace boost
+
+#endif  // BOOST_NETWORK_SUPPORT_IS_ASYNC_HPP_2010608

@@ -7,40 +7,36 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_request;
+template <class Tag>
+struct basic_request;
 
-    namespace impl {
+namespace impl {
 
-        template <class Tag>
-        struct host_wrapper {
-            basic_request<Tag> const & message_;
+template <class Tag>
+struct host_wrapper {
+  basic_request<Tag> const& message_;
 
-            host_wrapper(basic_request<Tag> const & message)
-                : message_(message) {}
+  host_wrapper(basic_request<Tag> const& message) : message_(message) {}
 
-            typedef typename basic_request<Tag>::string_type string_type;
+  typedef typename basic_request<Tag>::string_type string_type;
 
-            operator string_type() {
-                return message_.host();
-            }
-        };
+  operator string_type() { return message_.host(); }
+};
+}
 
-    }
+template <class Tag>
+inline impl::host_wrapper<Tag> host(basic_request<Tag> const& request) {
+  return impl::host_wrapper<Tag>(request);
+}
 
-    template <class Tag>
-    inline 
-    impl::host_wrapper<Tag>
-    host(basic_request<Tag> const & request) {
-        return impl::host_wrapper<Tag>(request);
-    }
+}  // namespace http
 
-} // namespace http
+}  // namespace network
 
-} // namespace network
+}  // namespace boost
 
-} // namespace boost
-
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_HOST_HPP_20100618
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_HOST_HPP_20100618

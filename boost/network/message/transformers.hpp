@@ -17,46 +17,37 @@
 
 #include <boost/type_traits.hpp>
 
-namespace boost { namespace network {
-    namespace impl {
-        template <class Algorithm, class Selector>
-            struct get_real_algorithm {
-                typedef typename boost::function_traits<
-                    typename boost::remove_pointer<
-                        Algorithm
-                    >::type
-                >
-                ::result_type::
-                template type<
-                    typename boost::function_traits<
-                        typename boost::remove_pointer<
-                            Selector
-                        >::type
-                    >::result_type
-                > type;
-            };
+namespace boost {
+namespace network {
+namespace impl {
+template <class Algorithm, class Selector>
+struct get_real_algorithm {
+  typedef typename boost::function_traits<
+      typename boost::remove_pointer<Algorithm>::type>::result_type::
+      template type<typename boost::function_traits<
+          typename boost::remove_pointer<Selector>::type>::result_type> type;
+};
 
-        template <class Algorithm, class Selector>
-            struct transform_impl : public get_real_algorithm<Algorithm, Selector>::type { };
-    } // namspace impl
+template <class Algorithm, class Selector>
+struct transform_impl : public get_real_algorithm<Algorithm, Selector>::type {};
+}  // namspace impl
 
-    template <class Algorithm, class Selector>
-        inline impl::transform_impl<Algorithm, Selector>
-        transform(Algorithm, Selector) {
-            return impl::transform_impl<Algorithm, Selector>();
-        }
+template <class Algorithm, class Selector>
+inline impl::transform_impl<Algorithm, Selector> transform(Algorithm,
+                                                           Selector) {
+  return impl::transform_impl<Algorithm, Selector>();
+}
 
-    template <class Tag, class Algorithm, class Selector>
-        inline basic_message<Tag> &
-        operator<< (basic_message<Tag> & msg_, 
-                impl::transform_impl<Algorithm, Selector> 
-                    const & transformer) {
-            transformer(msg_);
-            return msg_;
-        }
+template <class Tag, class Algorithm, class Selector>
+inline basic_message<Tag>& operator<<(
+    basic_message<Tag>& msg_,
+    impl::transform_impl<Algorithm, Selector> const& transformer) {
+  transformer(msg_);
+  return msg_;
+}
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // __NETWORK_MESSAGE_TRANSFORMERS_HPP__
+#endif  // __NETWORK_MESSAGE_TRANSFORMERS_HPP__

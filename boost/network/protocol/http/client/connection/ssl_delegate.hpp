@@ -15,31 +15,44 @@
 #include <boost/network/support/is_default_string.hpp>
 #include <boost/network/support/is_default_wstring.hpp>
 
-namespace boost { namespace network { namespace http { namespace impl {
+namespace boost {
+namespace network {
+namespace http {
+namespace impl {
 
-struct ssl_delegate : connection_delegate, enable_shared_from_this<ssl_delegate> {
-  ssl_delegate(asio::io_service & service,
-                      optional<std::string> certificate_filename,
-                      optional<std::string> verify_path);
+struct ssl_delegate : connection_delegate,
+                      enable_shared_from_this<ssl_delegate> {
+  ssl_delegate(asio::io_service &service, bool always_verify_peer,
+               optional<std::string> certificate_filename,
+               optional<std::string> verify_path,
+               optional<std::string> certificate_file,
+               optional<std::string> private_key_file);
 
-  virtual void connect(asio::ip::tcp::endpoint & endpoint,
+  virtual void connect(asio::ip::tcp::endpoint &endpoint, std::string host,
                        function<void(system::error_code const &)> handler);
-  virtual void write(asio::streambuf & command_streambuf,
-                     function<void(system::error_code const &, size_t)> handler);
-  virtual void read_some(asio::mutable_buffers_1 const & read_buffer,
-                         function<void(system::error_code const &, size_t)> handler);
+  virtual void write(
+      asio::streambuf &command_streambuf,
+      function<void(system::error_code const &, size_t)> handler);
+  virtual void read_some(
+      asio::mutable_buffers_1 const &read_buffer,
+      function<void(system::error_code const &, size_t)> handler);
+  virtual void disconnect();
   ~ssl_delegate();
 
  private:
-  asio::io_service & service_;
-  optional<std::string> certificate_filename_, verify_path_;
+  asio::io_service &service_;
+  optional<std::string> certificate_filename_;
+  optional<std::string> verify_path_;
+  optional<std::string> certificate_file_;
+  optional<std::string> private_key_file_;
   scoped_ptr<asio::ssl::context> context_;
   scoped_ptr<asio::ssl::stream<asio::ip::tcp::socket> > socket_;
+  bool always_verify_peer_;
 
-  ssl_delegate(ssl_delegate const &);  // = delete
-  ssl_delegate& operator=(ssl_delegate);  // = delete
+  ssl_delegate(ssl_delegate const &);     // = delete
+  ssl_delegate &operator=(ssl_delegate);  // = delete
 
-  void handle_connected(system::error_code const & ec,
+  void handle_connected(system::error_code const &ec,
                         function<void(system::error_code const &)> handler);
 };
 
@@ -55,4 +68,5 @@ struct ssl_delegate : connection_delegate, enable_shared_from_this<ssl_delegate>
 #include <boost/network/protocol/http/client/connection/ssl_delegate.ipp>
 #endif /* BOOST_NETWORK_NO_LIB */
 
-#endif /* BOOST_NETWORK_PROTOCOL_HTTP_CLIENT_CONNECTION_SSL_DELEGATE_20110819 */
+#endif /* BOOST_NETWORK_PROTOCOL_HTTP_CLIENT_CONNECTION_SSL_DELEGATE_20110819 \
+          */

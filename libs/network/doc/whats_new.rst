@@ -4,8 +4,103 @@
  What's New
 ************
 
+:mod:`cpp-netlib` 0.11
+----------------------
+
+v0.11.1
+~~~~~~~
+* Add support for request timeouts.
+* Build configuration fixes.
+* Support for Travis CI in-project config.
+* Make the response parser more flexible to support older/ad-hoc servers that don't have standard format responses.
+* Fix some instability in the client destructor.
+* MSVC 2010 specific fixes.
+
+v0.11.0
+~~~~~~~
+* Fix thread leak in DNS resolution failure (`#245`_)
+* Remove unsupported `client_fwd.hpp` header (`#277`_)
+* Remove support for header-only usage (`#129`_) -- this means that the BOOST_NETWORK_NO_LIB option is no longer actually supported.
+* Deprecate Synchronous Client implementations (`#279`_)
+* Support streaming body chunks for PUT/POST client requests (`#27`_)
+* Fix non-case-sensitive header parsing for some client tags (`#313`_)
+* Remove unsupported Jamfiles from the whole project (`#316`_)
+* Add ``make install`` for Linux and OS X (`#285`_) 
+* Fix incorrect Body processing (`#69`_)
+* Support chunked transfer encoding from HTTP responses (`#86`_)
+* Make OS X Clang builds use C++11 and libc++. 
+* Update Boost requirement to 1.54.0.
+* Experimental Base64 encoding/decoding library (`#287`_)
+* *Known test failure:* OS X Xcode Clang 5.0 + Boost 1.54.0 + libc++ don't play
+  well with Boost.Serialization issues, mitigate test breakage but
+  ``cpp-netlib-utils_base64_test`` still fails in this platform. (`#287`_) 
+* Provide a client option to always validate peers for HTTPS requests made by
+  the client. (`#349`_)
+* Back-port fix for `#163`_ for improved URI parsing.
+* Added support for client-side certificates and private keys (`#361`_).
+
+.. _`#129`: https://github.com/cpp-netlib/cpp-netlib/issues/129
+.. _`#163`: https://github.com/cpp-netlib/cpp-netlib/issues/163
+.. _`#245`: https://github.com/cpp-netlib/cpp-netlib/issues/245
+.. _`#277`: https://github.com/cpp-netlib/cpp-netlib/issues/277
+.. _`#279`: https://github.com/cpp-netlib/cpp-netlib/issues/279
+.. _`#27`: https://github.com/cpp-netlib/cpp-netlib/issues/27
+.. _`#285`: https://github.com/cpp-netlib/cpp-netlib/issues/285
+.. _`#287`: https://github.com/cpp-netlib/cpp-netlib/issues/287
+.. _`#313`: https://github.com/cpp-netlib/cpp-netlib/issues/313
+.. _`#316`: https://github.com/cpp-netlib/cpp-netlib/issues/316
+.. _`#349`: https://github.com/cpp-netlib/cpp-netlib/issues/349
+.. _`#69`: https://github.com/cpp-netlib/cpp-netlib/issues/69
+.. _`#86`: https://github.com/cpp-netlib/cpp-netlib/issues/86
+.. _`#361`: https://github.com/cpp-netlib/cpp-netlib/pull/361
+
+:mod:`cpp-netlib` 0.10
+----------------------
+
+v0.10.1
+~~~~~~~
+* Documentation updates (`#182`_, `#265`_, `#194`_, `#233`_, `#255`_)
+* Fix issue with async server inadvertently stopping from listening when
+  accepting a connection fails. (`#172`_)
+* Allow overriding and ultimately removing defaulted headers from HTTP
+  requests. (`#263`_)
+* Add `-Wall` to the base rule for GCC builds. (`#264`_)
+* Make the server implementation throw on startup errors. (`#166`_)
+
+.. _`#182`: https://github.com/cpp-netlib/cpp-netlib/issues/182
+.. _`#265`: https://github.com/cpp-netlib/cpp-netlib/issues/265
+.. _`#194`: https://github.com/cpp-netlib/cpp-netlib/issues/194
+.. _`#172`: https://github.com/cpp-netlib/cpp-netlib/issues/172
+.. _`#263`: https://github.com/cpp-netlib/cpp-netlib/issues/263
+.. _`#233`: https://github.com/cpp-netlib/cpp-netlib/issues/233
+.. _`#264`: https://github.com/cpp-netlib/cpp-netlib/issues/264
+.. _`#255`: https://github.com/cpp-netlib/cpp-netlib/issues/255
+.. _`#166`: https://github.com/cpp-netlib/cpp-netlib/issues/166
+
+v0.10.0
+~~~~~~~
+* Added support for more HTTP status codes (206, 408, 412, 416, 507).
+* Refactored the parser for chunked encoding.
+* Fixed parsing chunked encoding if the response body has ``<chunk>CLRF<hex>CLRF<data>``.
+* Added librt dependency on Linux.
+* Check the callback in the asynchronous client before calling it.
+* Fixed issues `#110`_, `#168`_, `#213`_.
+
+.. _`#110`: https://github.com/cpp-netlib/cpp-netlib/issues/110
+.. _`#168`: https://github.com/cpp-netlib/cpp-netlib/issues/168
+.. _`#213`: https://github.com/cpp-netlib/cpp-netlib/issues/213
+
 :mod:`cpp-netlib` 0.9
 ---------------------
+
+v0.9.5
+~~~~~~
+* Removed dependency on Boost.Parameter from HTTP client and server.
+* Fixed for Clang error on Twitter example.
+* Added source port to the request (HTTP server).
+* Updated CMake config for MSVC 2010/2012.
+* Now support chunked content encoding in client response parsing.
+* Fixed bug with client not invoking callback when a request fails.
 
 v0.9.4
 ~~~~~~

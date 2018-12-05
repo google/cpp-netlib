@@ -1,19 +1,21 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Twitter search &mdash; cpp-netlib v0.9.4</title>
-    <link rel="stylesheet" href="../../_static/cpp-netlib.css" type="text/css" />
+    <title>Twitter search &mdash; cpp-netlib v0.11.1</title>
+    
+    <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.9.4',
+        VERSION:     '0.11.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,60 +24,45 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="cpp-netlib v0.9.4" href="../../index.html" />
+    <link rel="top" title="cpp-netlib v0.11.1" href="../../index.html" />
     <link rel="up" title="Examples" href="../../examples.html" />
     <link rel="next" title="An in-depth look at the cpp-netlib" href="../../in_depth.html" />
     <link rel="prev" title="Atom feed reader" href="atom_reader.html" />
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-19815738-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
 
   </head>
   <body>
 
-    <div class="document">
-  <div id="custom-doc" class="yui-t4">
-    <div id="hd">
-      <h1><a href="../../index.html">cpp-netlib v0.9.4</a></h1>
-      <div id="global-nav">
-        <a title="Home page" href="../../index.html">Home</a>  |
-        <a title="Table of contents" href="../../contents.html">Table of contents</a> |
-	<a title="What's new" href="../../whats_new.html">What's new</a> |
-	<a title="Getting started" href="../../getting_started.html">Getting started</a> |
-	<a title="Examples" href="../../examples.html">Examples</a> |
-	<a title="In depth" href="../../in_depth.html">In depth</a> |
-	<a title="Reference" href="../../reference.html">Reference</a>
-      </div>
-      <div class="nav">
-    &laquo; <a href="atom_reader.html" title="Atom feed reader">previous</a>
-     |
-    <a href="../../examples.html" title="Examples" accesskey="U">up</a>
-   |
-    <a href="../../in_depth.html" title="An in-depth look at the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;cpp-netlib&lt;/span&gt;&lt;/tt&gt;">next</a> &raquo;</div>
-    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../in_depth.html" title="An in-depth look at the cpp-netlib"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="atom_reader.html" title="Atom feed reader"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../contents.html">cpp-netlib v0.11.1</a> &raquo;</li>
+          <li><a href="../../examples.html" accesskey="U">Examples</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-    <div id="bd">
-      <div id="yui-main">
-        <div class="yui-b">
-          <div class="yui-g" id="examples-http-twitter_search">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
             
-  <div class="section" id="cpp-netlib-twitter-search">
-<span id="cpp-netlib-id1"></span><h1>Twitter search<a class="headerlink" href="#cpp-netlib-twitter-search" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="twitter-search">
+<span id="id1"></span><h1>Twitter search<a class="headerlink" href="#twitter-search" title="Permalink to this headline">¶</a></h1>
 <p>This example uses <a class="reference external" href="https://dev.twitter.com/docs/using-search">Twitter&#8217;s search API</a> to list recent tweets given
 a user query.  New features introduced here include the URI builder
 and <tt class="docutils literal"><span class="pre">uri::encoded</span></tt> function.</p>
-<div class="section" id="cpp-netlib-the-code">
-<h2>The code<a class="headerlink" href="#cpp-netlib-the-code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-code">
+<h2>The code<a class="headerlink" href="#the-code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;boost/network/protocol/http/client.hpp&gt;</span>
 <span class="cp">#include &quot;rapidjson/rapidjson.h&quot;</span>
 <span class="cp">#include &quot;rapidjson/document.h&quot;</span>
@@ -129,8 +116,8 @@ and <tt class="docutils literal"><span class="pre">uri::encoded</span></tt> func
 the <a class="reference external" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>.</p>
 </div>
 </div>
-<div class="section" id="cpp-netlib-building-and-running-twitter-search">
-<h2>Building and running <tt class="docutils literal"><span class="pre">twitter_search</span></tt><a class="headerlink" href="#cpp-netlib-building-and-running-twitter-search" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="building-and-running-twitter-search">
+<h2>Building and running <tt class="docutils literal"><span class="pre">twitter_search</span></tt><a class="headerlink" href="#building-and-running-twitter-search" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ~/cpp-netlib-build
 <span class="nv">$ </span>make twitter_search
 </pre></div>
@@ -152,8 +139,8 @@ of search queries.  Some examples are provided below:</p>
 attitude.</p>
 <p>More examples can be found on <a class="reference external" href="https://dev.twitter.com/docs/using-search">Twitter&#8217;s search API</a> page.</p>
 </div>
-<div class="section" id="cpp-netlib-diving-into-the-code">
-<h2>Diving into the code<a class="headerlink" href="#cpp-netlib-diving-into-the-code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="diving-into-the-code">
+<h2>Diving into the code<a class="headerlink" href="#diving-into-the-code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">uri</span><span class="o">::</span><span class="n">uri</span> <span class="n">base_uri</span><span class="p">(</span><span class="s">&quot;http://search.twitter.com/search.json&quot;</span><span class="p">);</span>
 
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Searching Twitter for query: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
@@ -173,10 +160,6 @@ using the <tt class="docutils literal"><span class="pre">encoded</span></tt> dir
           </div>
         </div>
       </div>
-      
-        
-        <div class="yui-b" id="sidebar">
-          
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../contents.html">Table Of Contents</a></h3>
@@ -189,36 +172,16 @@ using the <tt class="docutils literal"><span class="pre">encoded</span></tt> dir
 </li>
 </ul>
 
-  <h3>Browse</h3>
-  <ul>
-    
-      <li>Prev: <a href="atom_reader.html">Atom feed reader</a></li>
-    
-    
-      <li>Next: <a href="../../in_depth.html">An in-depth look at the <tt class="docutils literal"><span class="pre">cpp-netlib</span></tt></a></li>
-    
-  </ul>
-  <h3>You are here:</h3>
-  <ul>
-      <li>
-        <a href="../../index.html">cpp-netlib v0.9.4</a>
-        
-          <ul><li><a href="../../examples.html">Examples</a>
-        
-        <ul><li>Twitter search</li></ul>
-        </li></ul>
-      </li>
-  </ul>
-
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../../_sources/examples/http/twitter_search.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="atom_reader.html"
+                        title="previous chapter">Atom feed reader</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../in_depth.html"
+                        title="next chapter">An in-depth look at the <tt class="docutils literal"><span class="pre">cpp-netlib</span></tt></a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -230,25 +193,25 @@ using the <tt class="docutils literal"><span class="pre">encoded</span></tt> dir
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-        </div>
-      
-    </div>
-
-    <div id="ft">
-      <div class="nav">
-    &laquo; <a href="atom_reader.html" title="Atom feed reader">previous</a>
-     |
-    <a href="../../examples.html" title="Examples" accesskey="U">up</a>
-   |
-    <a href="../../in_depth.html" title="An in-depth look at the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;cpp-netlib&lt;/span&gt;&lt;/tt&gt;">next</a> &raquo;</div>
-    </div>
-  </div>
-
       <div class="clearer"></div>
     </div>
-  <div class="footer">
-      documentation automatically generated by <a href="http://sphinx.pocoo.org">Sphinx</a> | style mostly stolen from <a href="http://lettuce.it">lettuce.it</a>
-  </div>
-
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../in_depth.html" title="An in-depth look at the cpp-netlib"
+             >next</a></li>
+        <li class="right" >
+          <a href="atom_reader.html" title="Atom feed reader"
+             >previous</a> |</li>
+        <li><a href="../../contents.html">cpp-netlib v0.11.1</a> &raquo;</li>
+          <li><a href="../../examples.html" >Examples</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2014, Glyn Matthews, Dean Michael Berris; 2013 Google, Inc..
+      Last updated on Sep 08, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
   </body>
 </html>

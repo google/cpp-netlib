@@ -9,46 +9,42 @@
 
 #include <boost/cstdint.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_response;
+template <class Tag>
+struct basic_response;
 
-    namespace impl {
+namespace impl {
 
-        template <class Tag>
-        struct status_wrapper {
+template <class Tag>
+struct status_wrapper {
 
-            basic_response<Tag> const & response_;
+  basic_response<Tag> const& response_;
 
-            explicit status_wrapper(basic_response<Tag> const & response)
-                : response_(response) {}
+  explicit status_wrapper(basic_response<Tag> const& response)
+      : response_(response) {}
 
-            status_wrapper(status_wrapper const & other)
-                : response_(other.response_) {}
+  status_wrapper(status_wrapper const& other) : response_(other.response_) {}
 
-            operator boost::uint16_t () {
-                return response_.status();
-            }
+  operator boost::uint16_t() { return response_.status(); }
+};
 
-        };
+}  // namespace impl
 
-    } // namespace impl
+template <class R>
+struct Response;
 
-    template <class R>
-    struct Response;
+template <class Tag>
+inline impl::status_wrapper<Tag> status(basic_response<Tag> const& response) {
+  return impl::status_wrapper<Tag>(response);
+}
 
-    template <class Tag>
-    inline
-    impl::status_wrapper<Tag>
-    status(basic_response<Tag> const & response) {
-        return impl::status_wrapper<Tag>(response);
-    }
+}  // namespace http
 
-} // namespace http
+}  // namespace network
 
-} // namespace network
+}  // namespace boost
 
-} // namespace boost
-
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_WRAPPERS_STATUS_HPP_20100603
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_WRAPPERS_STATUS_HPP_20100603

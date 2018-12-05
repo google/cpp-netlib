@@ -9,28 +9,22 @@
 #include <boost/network/support/is_default_string.hpp>
 #include <vector>
 
-namespace boost { namespace network {
+namespace boost {
+namespace network {
 
-    template <class Tag>
-    struct unsupported_tag;
+template <class Tag>
+struct unsupported_tag;
 
-    template <class Tag>
-    struct vector {
+template <class Tag>
+struct vector {
 
-        template <class Type>
-        struct apply :
-            mpl::if_<
-                is_default_string<Tag>
-                , std::vector<Type>
-                , unsupported_tag<Tag>
-            >
-        {};
+  template <class Type>
+  struct apply : mpl::if_<is_default_string<Tag>, std::vector<Type>,
+                          unsupported_tag<Tag> > {};
+};
 
-    };
+}  // namespace network
 
-} // namespace network
+}  // namespace boost
 
-} // namespace boost
-
-#endif // BOOST_NETWORK_TRAITS_VECTOR_HPP
-
+#endif  // BOOST_NETWORK_TRAITS_VECTOR_HPP

@@ -18,34 +18,34 @@
 #include <algorithm>
 #include "header.hpp"
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    /// A request received from a client.
-    struct request
-    {
-      std::string method;
-      std::string uri;
-      int http_version_major;
-      int http_version_minor;
-      std::vector<header> headers;
-      std::string body;
-    };
+/// A request received from a client.
+struct request {
+  std::string method;
+  std::string uri;
+  int http_version_major;
+  int http_version_minor;
+  std::vector<header> headers;
+  std::string body;
+};
 
-    inline void swap(request & l, request & r) {
-        using std::swap;
-        swap(l.method, r.method);
-        swap(l.uri, r.uri);
-        swap(l.http_version_major, r.http_version_major);
-        swap(l.http_version_minor, r.http_version_minor);
-        swap(l.headers, r.headers);
-        swap(l.body, r.body);
-    }
+inline void swap(request& l, request& r) {
+  using std::swap;
+  swap(l.method, r.method);
+  swap(l.uri, r.uri);
+  swap(l.http_version_major, r.http_version_major);
+  swap(l.http_version_minor, r.http_version_minor);
+  swap(l.headers, r.headers);
+  swap(l.body, r.body);
+}
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_HTTP_REQUEST_HPP
-
+#endif  // BOOST_NETWORK_HTTP_REQUEST_HPP

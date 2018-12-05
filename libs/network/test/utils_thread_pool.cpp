@@ -20,30 +20,27 @@ using namespace boost::network;
 // syntactically.
 //
 
-BOOST_AUTO_TEST_CASE( default_constructor ) {
-    utils::thread_pool pool;
-    BOOST_CHECK_EQUAL(pool.thread_count(), std::size_t(1));
+BOOST_AUTO_TEST_CASE(default_constructor) {
+  utils::thread_pool pool;
+  BOOST_CHECK_EQUAL(pool.thread_count(), std::size_t(1));
 }
 
 struct foo {
-    foo() : val_(0) {}
-    void bar(int val) {
-        val_ += val;
-    }
-    int const val() const {
-        return val_;
-    }
-protected:
-    int val_;
+  foo() : val_(0) {}
+  void bar(int val) { val_ += val; }
+  int const val() const { return val_; }
+
+ protected:
+  int val_;
 };
 
-BOOST_AUTO_TEST_CASE( post_work ) {
-    foo instance;
-    {
-        utils::thread_pool pool;
-        BOOST_CHECK_NO_THROW(pool.post(boost::bind(&foo::bar, &instance, 1)));
-        BOOST_CHECK_NO_THROW(pool.post(boost::bind(&foo::bar, &instance, 2)));
-        // require that pool is destroyed here, RAII baby
-    }
-    BOOST_CHECK_EQUAL(instance.val(), 3);
+BOOST_AUTO_TEST_CASE(post_work) {
+  foo instance;
+  {
+    utils::thread_pool pool;
+    BOOST_CHECK_NO_THROW(pool.post(boost::bind(&foo::bar, &instance, 1)));
+    BOOST_CHECK_NO_THROW(pool.post(boost::bind(&foo::bar, &instance, 2)));
+    // require that pool is destroyed here, RAII baby
+  }
+  BOOST_CHECK_EQUAL(instance.val(), 3);
 }

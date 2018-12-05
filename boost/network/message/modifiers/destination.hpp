@@ -10,29 +10,32 @@
 #include <boost/network/support/is_async.hpp>
 #include <boost/thread/future.hpp>
 
-namespace boost { namespace network {
+namespace boost {
+namespace network {
 
-    namespace impl {
+namespace impl {
 
-        template <class Message, class ValueType, class Tag>
-        inline void destination(Message const & message, ValueType const & destination_, Tag const &, mpl::false_ const &){
-            message.destination(destination_);
-        }
+template <class Message, class ValueType, class Tag>
+inline void destination(Message const &message, ValueType const &destination_,
+                        Tag const &, mpl::false_ const &) {
+  message.destination(destination_);
+}
 
-        template <class Message, class ValueType, class Tag>
-        inline void destination(Message const & message, ValueType const & destination_, Tag const &, mpl::true_ const &) {
-            message.destination(destination_);
-        }
+template <class Message, class ValueType, class Tag>
+inline void destination(Message const &message, ValueType const &destination_,
+                        Tag const &, mpl::true_ const &) {
+  message.destination(destination_);
+}
+}
 
-    }
+template <class Tag, template <class> class Message, class ValueType>
+inline void destination(Message<Tag> const &message,
+                        ValueType const &destination_) {
+  impl::destination(message, destination_, Tag(), is_async<Tag>());
+}
 
-    template <class Tag, template<class> class Message, class ValueType>
-    inline void destination(Message<Tag> const & message, ValueType const & destination_) {
-        impl::destination(message, destination_, Tag(), is_async<Tag>());
-    }
+}  // namespace network
 
-} // namespace network
+}  // namespace boost
 
-} // namespace boost
-
-#endif // BOOST_NETWORK_MESSAGE_MODIFIER_DESTINATION_HPP_20100824
+#endif  // BOOST_NETWORK_MESSAGE_MODIFIER_DESTINATION_HPP_20100824

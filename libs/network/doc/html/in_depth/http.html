@@ -1,19 +1,21 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>HTTP implementation &mdash; cpp-netlib v0.9.4</title>
-    <link rel="stylesheet" href="../_static/cpp-netlib.css" type="text/css" />
+    <title>HTTP implementation &mdash; cpp-netlib v0.11.1</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.9.4',
+        VERSION:     '0.11.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,57 +24,42 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="cpp-netlib v0.9.4" href="../index.html" />
+    <link rel="top" title="cpp-netlib v0.11.1" href="../index.html" />
     <link rel="up" title="An in-depth look at the cpp-netlib" href="../in_depth.html" />
     <link rel="next" title="Techniques" href="../techniques.html" />
     <link rel="prev" title="The URI class" href="uri.html" />
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-19815738-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
 
   </head>
   <body>
 
-    <div class="document">
-  <div id="custom-doc" class="yui-t4">
-    <div id="hd">
-      <h1><a href="../index.html">cpp-netlib v0.9.4</a></h1>
-      <div id="global-nav">
-        <a title="Home page" href="../index.html">Home</a>  |
-        <a title="Table of contents" href="../contents.html">Table of contents</a> |
-	<a title="What's new" href="../whats_new.html">What's new</a> |
-	<a title="Getting started" href="../getting_started.html">Getting started</a> |
-	<a title="Examples" href="../examples.html">Examples</a> |
-	<a title="In depth" href="../in_depth.html">In depth</a> |
-	<a title="Reference" href="../reference.html">Reference</a>
-      </div>
-      <div class="nav">
-    &laquo; <a href="uri.html" title="The URI class">previous</a>
-     |
-    <a href="../in_depth.html" title="An in-depth look at the &lt;tt class=&#34;docutils literal docutils literal docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;cpp-netlib&lt;/span&gt;&lt;/tt&gt;" accesskey="U">up</a>
-   |
-    <a href="../techniques.html" title="Techniques">next</a> &raquo;</div>
-    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../techniques.html" title="Techniques"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="uri.html" title="The URI class"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">cpp-netlib v0.11.1</a> &raquo;</li>
+          <li><a href="../in_depth.html" accesskey="U">An in-depth look at the <tt class="docutils literal docutils literal docutils literal"><span class="pre">cpp-netlib</span></tt></a> &raquo;</li> 
+      </ul>
+    </div>  
 
-    <div id="bd">
-      <div id="yui-main">
-        <div class="yui-b">
-          <div class="yui-g" id="in_depth-http">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
             
-  <div class="section" id="cpp-netlib-http-implementation">
-<h1>HTTP implementation<a class="headerlink" href="#cpp-netlib-http-implementation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="cpp-netlib-http-client">
-<h2>HTTP client<a class="headerlink" href="#cpp-netlib-http-client" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="http-implementation">
+<h1>HTTP implementation<a class="headerlink" href="#http-implementation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="http-client">
+<h2>HTTP client<a class="headerlink" href="#http-client" title="Permalink to this headline">¶</a></h2>
 <p>At the heart of the HTTP client implementation is a single class aptly named
 <tt class="docutils literal"><span class="pre">basic_client</span></tt>, which is also a template. The template <tt class="docutils literal"><span class="pre">basic_client</span></tt> takes
 three template parameters:</p>
@@ -98,24 +85,24 @@ overload of the <tt class="docutils literal"><span class="pre">basic_client</spa
 <col width="58%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">Tag</th>
+<tr class="row-odd"><th class="head">Tag</th>
 <th class="head">Description</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td>http_default_8bit_tcp_resolve</td>
+<tr class="row-even"><td>http_default_8bit_tcp_resolve</td>
 <td>This is the default HTTP implementation tag
 that resolves addresses with a TCP resolver
 and provides a synchronous/blocking HTTP
 client interface.</td>
 </tr>
-<tr><td>http_default_8bit_udp_resolve</td>
+<tr class="row-odd"><td>http_default_8bit_udp_resolve</td>
 <td>This is similar to the above tag except that
 it specifies the HTTP client to use a UDP
 resolver. It also provides a synchronous/
 blocking HTTP client interface.</td>
 </tr>
-<tr><td>http_keepalive_8bit_tcp_resolve</td>
+<tr class="row-even"><td>http_keepalive_8bit_tcp_resolve</td>
 <td>This tag specifies that the HTTP client by
 default will keep connections to the server
 alive. It only makes sense if the
@@ -125,13 +112,13 @@ causes the HTTP client to resolve using a
 TCP resolver and provides a synchronous/
 blocking HTTP client interface.</td>
 </tr>
-<tr><td>http_keepalive_8bit_udp_resolve</td>
+<tr class="row-odd"><td>http_keepalive_8bit_udp_resolve</td>
 <td>This is similar to the above tag except that
 it specifies the HTTP client to use a UDP
 resolver. It also provides a synchronous/
 blocking HTTP client interface.</td>
 </tr>
-<tr><td>http_async_8bit_tcp_resolve</td>
+<tr class="row-even"><td>http_async_8bit_tcp_resolve</td>
 <td>This tag provides an active HTTP client
 object implementation that uses a TCP
 resolver. Response objects returned will
@@ -140,7 +127,7 @@ shared futures to hold values. Users don&#8217;t
 have to see this as they are implementation
 details.</td>
 </tr>
-<tr><td>http_async_8bit_udp_resolve</td>
+<tr class="row-odd"><td>http_async_8bit_udp_resolve</td>
 <td>This is similar to the above tag except that
 specifies the HTTP client to use a UDP
 resolver.</td>
@@ -148,11 +135,11 @@ resolver.</td>
 </tbody>
 </table>
 <p>The default typedef for the HTTP client that is provided uses the
-<tt class="docutils literal"><span class="pre">http_default_8bit_udp_resolve</span></tt> tag, and implements HTTP 1.0. The exact
+<tt class="docutils literal"><span class="pre">http_async_8bit_udp_resolve</span></tt> tag, and implements HTTP 1.1. The exact
 typedef is in the <tt class="docutils literal"><span class="pre">boost::network::http</span></tt> namespace as the following:</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">namespace</span> <span class="n">boost</span> <span class="p">{</span> <span class="k">namespace</span> <span class="n">network</span> <span class="p">{</span> <span class="k">namespace</span> <span class="n">http</span> <span class="p">{</span>
 
-    <span class="k">typedef</span> <span class="n">basic_client</span><span class="o">&lt;</span><span class="n">tags</span><span class="o">::</span><span class="n">http_default_8bit_udp_resolve</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span>
+    <span class="k">typedef</span> <span class="n">basic_client</span><span class="o">&lt;</span><span class="n">tags</span><span class="o">::</span><span class="n">http_async_8bit_udp_resolve</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span>
         <span class="n">client</span><span class="p">;</span>
 
 <span class="p">}}}</span>
@@ -200,8 +187,8 @@ returns, in the default case, a multimap of strings to strings:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="cpp-netlib-http-server">
-<h2>HTTP server<a class="headerlink" href="#cpp-netlib-http-server" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="http-server">
+<h2>HTTP server<a class="headerlink" href="#http-server" title="Permalink to this headline">¶</a></h2>
 <p>As with the HTTP client, the HTTP server that is provided with
 cpp-netlib is extensible through the tag mechanism and is embeddable.
 The template class declaration of <tt class="docutils literal"><span class="pre">basic_server</span></tt> is given below:</p>
@@ -269,10 +256,6 @@ the request.</p>
           </div>
         </div>
       </div>
-      
-        
-        <div class="yui-b" id="sidebar">
-          
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../contents.html">Table Of Contents</a></h3>
@@ -284,36 +267,16 @@ the request.</p>
 </li>
 </ul>
 
-  <h3>Browse</h3>
-  <ul>
-    
-      <li>Prev: <a href="uri.html">The URI class</a></li>
-    
-    
-      <li>Next: <a href="../techniques.html">Techniques</a></li>
-    
-  </ul>
-  <h3>You are here:</h3>
-  <ul>
-      <li>
-        <a href="../index.html">cpp-netlib v0.9.4</a>
-        
-          <ul><li><a href="../in_depth.html">An in-depth look at the <tt class="docutils literal docutils literal docutils literal"><span class="pre">cpp-netlib</span></tt></a>
-        
-        <ul><li>HTTP implementation</li></ul>
-        </li></ul>
-      </li>
-  </ul>
-
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/in_depth/http.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="uri.html"
+                        title="previous chapter">The URI class</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../techniques.html"
+                        title="next chapter">Techniques</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -325,25 +288,25 @@ the request.</p>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-        </div>
-      
-    </div>
-
-    <div id="ft">
-      <div class="nav">
-    &laquo; <a href="uri.html" title="The URI class">previous</a>
-     |
-    <a href="../in_depth.html" title="An in-depth look at the &lt;tt class=&#34;docutils literal docutils literal docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;cpp-netlib&lt;/span&gt;&lt;/tt&gt;" accesskey="U">up</a>
-   |
-    <a href="../techniques.html" title="Techniques">next</a> &raquo;</div>
-    </div>
-  </div>
-
       <div class="clearer"></div>
     </div>
-  <div class="footer">
-      documentation automatically generated by <a href="http://sphinx.pocoo.org">Sphinx</a> | style mostly stolen from <a href="http://lettuce.it">lettuce.it</a>
-  </div>
-
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../techniques.html" title="Techniques"
+             >next</a></li>
+        <li class="right" >
+          <a href="uri.html" title="The URI class"
+             >previous</a> |</li>
+        <li><a href="../contents.html">cpp-netlib v0.11.1</a> &raquo;</li>
+          <li><a href="../in_depth.html" >An in-depth look at the <tt class="docutils literal docutils literal docutils literal"><span class="pre">cpp-netlib</span></tt></a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2014, Glyn Matthews, Dean Michael Berris; 2013 Google, Inc..
+      Last updated on Sep 08, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
   </body>
 </html>

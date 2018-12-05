@@ -10,34 +10,38 @@
 #include <boost/network/support/is_async.hpp>
 #include <boost/thread/future.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_response;
+template <class Tag>
+struct basic_response;
 
-    namespace impl {
+namespace impl {
 
-        template <class Tag, class T>
-        void status(basic_response<Tag> & response, T const & value, mpl::false_ const &) {
-            response << boost::network::http::status(value);
-        }
+template <class Tag, class T>
+void status(basic_response<Tag> &response, T const &value,
+            mpl::false_ const &) {
+  response << boost::network::http::status(value);
+}
 
-        template <class Tag, class T>
-        void status(basic_response<Tag> & response, T const & future, mpl::true_ const &) {
-            response.status(future);
-        }
+template <class Tag, class T>
+void status(basic_response<Tag> &response, T const &future,
+            mpl::true_ const &) {
+  response.status(future);
+}
 
-    } // namespace impl
+}  // namespace impl
 
-    template <class Tag, class T>
-    void status(basic_response<Tag> & response, T const & value) {
-        impl::status(response, value, is_async<Tag>());
-    }
+template <class Tag, class T>
+void status(basic_response<Tag> &response, T const &value) {
+  impl::status(response, value, is_async<Tag>());
+}
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_MODIFIERS_STATUS_HPP_20100608
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_MODIFIERS_STATUS_HPP_20100608

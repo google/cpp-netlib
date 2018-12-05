@@ -19,44 +19,45 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/network/protocol/http/request.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
 namespace tag {
-    struct default_;
+struct default_;
 }
 
 /// Parser for incoming requests.
 template <class Tag>
-class basic_request_parser
-{
-public:
+class basic_request_parser {
+ public:
   /// Construct ready to parse the request method.
   basic_request_parser() : state_(method_start) {}
 
   /// Reset to initial parser state.
   void reset() { state_ = method_start; }
 
-  /// Parse some data. The tribool return value is true when a complete request
-  /// has been parsed, false if the data is invalid, indeterminate when more
-  /// data is required. The InputIterator return value indicates how much of the
+  /// Parse some data. The tribool return value is true when a complete
+  /// request
+  /// has been parsed, false if the data is invalid, indeterminate when
+  /// more
+  /// data is required. The InputIterator return value indicates how much
+  /// of the
   /// input has been consumed.
   template <typename InputIterator>
-  boost::tuple<boost::tribool, InputIterator> parse_headers(basic_request<Tag> & req,
-      InputIterator begin, InputIterator end)
-  {
-    while (begin != end)
-    {
+  boost::tuple<boost::tribool, InputIterator> parse_headers(
+      basic_request<Tag>& req, InputIterator begin, InputIterator end) {
+    while (begin != end) {
       boost::tribool result = consume(req, *begin++);
-      if (result || !result)
-        return boost::make_tuple(result, begin);
+      if (result || !result) return boost::make_tuple(result, begin);
     }
     boost::tribool result = boost::indeterminate;
     return boost::make_tuple(result, begin);
   }
 
-private:
+ private:
   /// Handle the next character of input.
-  boost::tribool consume(basic_request<Tag> & req, char input);
+  boost::tribool consume(basic_request<Tag>& req, char input);
 
   /// Check if a byte is an HTTP character.
   static bool is_char(int c);
@@ -71,8 +72,7 @@ private:
   static bool is_digit(int c);
 
   /// The current state of the parser.
-  enum state
-  {
+  enum state {
     method_start,
     method,
     uri_start,
@@ -97,12 +97,12 @@ private:
   } state_;
 };
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
 #include <boost/network/protocol/http/impl/request_parser.ipp>
 
-#endif // HTTP_SERVER3_REQUEST_PARSER_HPP
+#endif  // HTTP_SERVER3_REQUEST_PARSER_HPP

@@ -1,19 +1,21 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Reference Manual &mdash; cpp-netlib v0.9.4</title>
-    <link rel="stylesheet" href="_static/cpp-netlib.css" type="text/css" />
+    <title>Reference Manual &mdash; cpp-netlib v0.11.1</title>
+    
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.9.4',
+        VERSION:     '0.11.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,60 +24,45 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="cpp-netlib v0.9.4" href="index.html" />
+    <link rel="top" title="cpp-netlib v0.11.1" href="index.html" />
     <link rel="next" title="HTTP Client API" href="reference/http_client.html" />
     <link rel="prev" title="Project history" href="history.html" />
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-19815738-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
 
   </head>
   <body>
 
-    <div class="document">
-  <div id="custom-doc" class="yui-t4">
-    <div id="hd">
-      <h1><a href="index.html">cpp-netlib v0.9.4</a></h1>
-      <div id="global-nav">
-        <a title="Home page" href="index.html">Home</a>  |
-        <a title="Table of contents" href="contents.html">Table of contents</a> |
-	<a title="What's new" href="whats_new.html">What's new</a> |
-	<a title="Getting started" href="getting_started.html">Getting started</a> |
-	<a title="Examples" href="examples.html">Examples</a> |
-	<a title="In depth" href="in_depth.html">In depth</a> |
-	<a title="Reference" href="#">Reference</a>
-      </div>
-      <div class="nav">
-    &laquo; <a href="history.html" title="Project history">previous</a>
-     |
-    <a title="cpp-netlib v0.9.4" href="index.html" accesskey="U">up</a>
-   |
-    <a href="reference/http_client.html" title="HTTP Client API">next</a> &raquo;</div>
-    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="reference/http_client.html" title="HTTP Client API"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="history.html" title="Project history"
+             accesskey="P">previous</a> |</li>
+        <li><a href="contents.html">cpp-netlib v0.11.1</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-    <div id="bd">
-      <div id="yui-main">
-        <div class="yui-b">
-          <div class="yui-g" id="reference">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
             
-  <div class="section" id="cpp-netlib-reference-manual">
-<span id="cpp-netlib-reference"></span><h1>Reference Manual<a class="headerlink" href="#cpp-netlib-reference-manual" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="reference-manual">
+<span id="reference"></span><h1>Reference Manual<a class="headerlink" href="#reference-manual" title="Permalink to this headline">¶</a></h1>
 <p>This reference manual refers to the API documentation of the public interfaces
 to the different client and/or server implementations within <tt class="xref py py-mod docutils literal"><span class="pre">cpp-netlib</span></tt>.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="reference/http_client.html">HTTP Client API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="reference/http_client.html#general">General</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/http_client.html#features">Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/http_client.html#implementations">Implementations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/http_client.html#member-functions">Member Functions</a></li>
 </ul>
@@ -99,6 +86,7 @@ to the different client and/or server implementations within <tt class="xref py 
 <li class="toctree-l2"><a class="reference internal" href="reference/http_server.html#implementations">Implementations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/http_server.html#synchronous-servers">Synchronous Servers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/http_server.html#asynchronous-servers">Asynchronous Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/http_server.html#adding-ssl-support-to-asynchronous-server">Adding SSL support to Asynchronous Server</a></li>
 </ul>
 </li>
 </ul>
@@ -109,40 +97,18 @@ to the different client and/or server implementations within <tt class="xref py 
           </div>
         </div>
       </div>
-      
-        
-        <div class="yui-b" id="sidebar">
-          
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3>Browse</h3>
-  <ul>
-    
-      <li>Prev: <a href="history.html">Project history</a></li>
-    
-    
-      <li>Next: <a href="reference/http_client.html">HTTP Client API</a></li>
-    
-  </ul>
-  <h3>You are here:</h3>
-  <ul>
-      <li>
-        <a href="index.html">cpp-netlib v0.9.4</a>
-        
-        <ul><li>Reference Manual</li></ul>
-        
-      </li>
-  </ul>
-
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/reference.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="history.html"
+                        title="previous chapter">Project history</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reference/http_client.html"
+                        title="next chapter">HTTP Client API</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -154,25 +120,24 @@ to the different client and/or server implementations within <tt class="xref py 
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-        </div>
-      
-    </div>
-
-    <div id="ft">
-      <div class="nav">
-    &laquo; <a href="history.html" title="Project history">previous</a>
-     |
-    <a title="cpp-netlib v0.9.4" href="index.html" accesskey="U">up</a>
-   |
-    <a href="reference/http_client.html" title="HTTP Client API">next</a> &raquo;</div>
-    </div>
-  </div>
-
       <div class="clearer"></div>
     </div>
-  <div class="footer">
-      documentation automatically generated by <a href="http://sphinx.pocoo.org">Sphinx</a> | style mostly stolen from <a href="http://lettuce.it">lettuce.it</a>
-  </div>
-
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="reference/http_client.html" title="HTTP Client API"
+             >next</a></li>
+        <li class="right" >
+          <a href="history.html" title="Project history"
+             >previous</a> |</li>
+        <li><a href="contents.html">cpp-netlib v0.11.1</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2014, Glyn Matthews, Dean Michael Berris; 2013 Google, Inc..
+      Last updated on Sep 08, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
   </body>
 </html>

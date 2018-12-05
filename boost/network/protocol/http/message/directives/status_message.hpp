@@ -10,16 +10,18 @@
 #include <boost/network/tags.hpp>
 #include <boost/network/message/directives/detail/string_directive.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    BOOST_NETWORK_STRING_DIRECTIVE(status_message, status_message_, 
-        message.status_message(status_message_),
-        message.status_message=status_message_);
+BOOST_NETWORK_STRING_DIRECTIVE(status_message, status_message_,
+                               message.status_message(status_message_),
+                               message.status_message = status_message_);
 
-} // namespace http
+}  // namespace http
 
-} // namespace network 
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_DIRECTIVES_STATUS_MESSAGE_HPP_20100603
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_DIRECTIVES_STATUS_MESSAGE_HPP_20100603

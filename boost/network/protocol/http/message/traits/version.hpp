@@ -13,40 +13,37 @@
 #include <boost/thread/future.hpp>
 #include <boost/mpl/or.hpp>
 
-namespace boost { namespace network { namespace http {
-    
-    namespace traits {
+namespace boost {
+namespace network {
+namespace http {
 
-        template <class Tag>
-        struct unsupported_tag;
+namespace traits {
 
-        template <class Message, class Enable = void>
-        struct version
-        {
-            typedef unsupported_tag<typename Message::tag> type;
-        };
-        
-        template <class Message>
-        struct version<Message, typename enable_if<is_async<typename Message::tag> >::type>
-        {
-            typedef boost::shared_future<typename string<typename Message::tag>::type> type;
-        };
-        
-        template <class Message>
-        struct version<Message, 
-            typename enable_if<
-                mpl::or_<
-                    is_sync<typename Message::tag>,
-                    is_default_string<typename Message::tag>,
-                    is_default_wstring<typename Message::tag>
-                    >
-                >::type
-            >
-        {
-            typedef typename string<typename Message::tag>::type type;
-        };
-        
-    } /* traits */
+template <class Tag>
+struct unsupported_tag;
+
+template <class Message, class Enable = void>
+struct version {
+  typedef unsupported_tag<typename Message::tag> type;
+};
+
+template <class Message>
+struct version<Message,
+               typename enable_if<is_async<typename Message::tag> >::type> {
+  typedef boost::shared_future<typename string<typename Message::tag>::type>
+      type;
+};
+
+template <class Message>
+struct version<
+    Message, typename enable_if<
+                 mpl::or_<is_sync<typename Message::tag>,
+                          is_default_string<typename Message::tag>,
+                          is_default_wstring<typename Message::tag> > >::type> {
+  typedef typename string<typename Message::tag>::type type;
+};
+
+} /* traits */
 
 } /* http */
 } /* network */

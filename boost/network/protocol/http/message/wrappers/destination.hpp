@@ -8,26 +8,28 @@
 
 #include <boost/network/protocol/http/message/wrappers/helper.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_response;
+template <class Tag>
+struct basic_response;
 
-    template <class Tag>
-    struct basic_request;
+template <class Tag>
+struct basic_request;
 
-    template <class R>
-    struct Request;
+template <class R>
+struct Request;
 
-    template <class R>
-    struct Response;
+template <class R>
+struct Response;
 
-    BOOST_NETWORK_DEFINE_HTTP_WRAPPER(destination, destination, destination);
+BOOST_NETWORK_DEFINE_HTTP_WRAPPER(destination, destination, destination);
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_DESTINATION_HPP_20100624
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_DESTINATION_HPP_20100624

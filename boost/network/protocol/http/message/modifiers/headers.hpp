@@ -10,49 +10,51 @@
 #include <boost/thread/future.hpp>
 #include <boost/concept/requires.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_response;
+template <class Tag>
+struct basic_response;
 
-    template <class Tag>
-    struct basic_request;
+template <class Tag>
+struct basic_request;
 
-    namespace impl {
+namespace impl {
 
-        template <class Tag, class T>
-        void headers(basic_response<Tag> & response, T const & value, mpl::false_ const &) {
-            response << headers(value);
-        }
+template <class Tag, class T>
+void headers(basic_response<Tag> &response, T const &value,
+             mpl::false_ const &) {
+  response << headers(value);
+}
 
-        template <class Tag, class T>
-        void headers(basic_response<Tag> & response, T const & future, mpl::true_ const &) {
-            response.headers(future);
-        }
+template <class Tag, class T>
+void headers(basic_response<Tag> &response, T const &future,
+             mpl::true_ const &) {
+  response.headers(future);
+}
 
-        template <class Tag, class T>
-        void headers(basic_request<Tag> & request, T const & value, tags::server const &) {
-            request.headers = value;
-        }
+template <class Tag, class T>
+void headers(basic_request<Tag> &request, T const &value,
+             tags::server const &) {
+  request.headers = value;
+}
+}
 
-    }
+template <class Tag, class T>
+inline void headers(basic_response<Tag> &response, T const &value) {
+  impl::headers(response, value, is_async<Tag>());
+}
 
-    template <class Tag, class T>
-    inline void
-    headers(basic_response<Tag> & response, T const & value) {
-        impl::headers(response, value, is_async<Tag>());
-    }
+template <class Tag, class T>
+inline void headers(basic_request<Tag> &request, T const &value) {
+  impl::headers(request, value, Tag());
+}
 
-    template <class Tag, class T>
-    inline void
-    headers(basic_request<Tag> & request, T const & value) {
-        impl::headers(request, value, Tag());
-    }
+}  // namespace http
 
-} // namespace http
+}  // namespace network
 
-} // namespace network
+}  // namespace boost
 
-} // namespace boost
-
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_MODIFIER_HEADERS_HPP_20100624
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_MODIFIER_HEADERS_HPP_20100624

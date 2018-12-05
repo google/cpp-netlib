@@ -14,7 +14,10 @@
 #include <boost/network/protocol/http/client/connection/ssl_delegate.hpp>
 #endif /* BOOST_NETWORK_ENABLE_HTTPS */
 
-namespace boost { namespace network { namespace http { namespace impl {
+namespace boost {
+namespace network {
+namespace http {
+namespace impl {
 
 struct ssl_delegate;
 
@@ -25,19 +28,20 @@ struct connection_delegate_factory {
   typedef shared_ptr<connection_delegate> connection_delegate_ptr;
   typedef typename string<Tag>::type string_type;
 
-  // This is the factory method that actually returns the delegate instance.
+  // This is the factory method that actually returns the delegate
+  // instance.
   // TODO Support passing in proxy settings when crafting connections.
   static connection_delegate_ptr new_connection_delegate(
-      asio::io_service & service,
-      bool https,
+      asio::io_service& service, bool https, bool always_verify_peer,
       optional<string_type> certificate_filename,
-      optional<string_type> verify_path) {
+      optional<string_type> verify_path, optional<string_type> certificate_file,
+      optional<string_type> private_key_file) {
     connection_delegate_ptr delegate;
     if (https) {
 #ifdef BOOST_NETWORK_ENABLE_HTTPS
-      delegate.reset(new ssl_delegate(service,
-                                      certificate_filename,
-                                      verify_path));
+      delegate.reset(new ssl_delegate(service, always_verify_peer,
+                                      certificate_filename, verify_path,
+                                      certificate_file, private_key_file));
 #else
       BOOST_THROW_EXCEPTION(std::runtime_error("HTTPS not supported."));
 #endif /* BOOST_NETWORK_ENABLE_HTTPS */
@@ -53,4 +57,5 @@ struct connection_delegate_factory {
 } /* network */
 } /* boost */
 
-#endif /* BOOST_NETWORK_PROTOCOL_HTTP_CLIENT_CONNECTION_DELEGATE_FACTORY_HPP_20110819 */
+#endif /* BOOST_NETWORK_PROTOCOL_HTTP_CLIENT_CONNECTION_DELEGATE_FACTORY_HPP_20110819 \
+          */

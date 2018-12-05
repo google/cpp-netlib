@@ -11,22 +11,26 @@
 #include <boost/network/message/directives/header.hpp>
 #include <boost/network/message/directives/remove_header.hpp>
 
-namespace boost { namespace network {
+namespace boost {
+namespace network {
 
-    template <class Tag, class Directive>
-        inline basic_message<Tag> &
-        operator<< (basic_message<Tag> & message_, Directive const & directive) {
-            directive(message_);
-            return message_;
-        }
+template <class Tag, class Directive>
+inline basic_message<Tag>& operator<<(basic_message<Tag>& message_,
+                                      Directive const& directive) {
+  directive(message_);
+  return message_;
+}
 
-    BOOST_NETWORK_STRING_DIRECTIVE(source, source_, message.source(source_), message.source=source_);
-    BOOST_NETWORK_STRING_DIRECTIVE(destination, destination_, message.destination(destination_), message.destination=destination_);
-    BOOST_NETWORK_STRING_DIRECTIVE(body, body_, message.body(body_), message.body=body_);
+BOOST_NETWORK_STRING_DIRECTIVE(source, source_, message.source(source_),
+                               message.source = source_);
+BOOST_NETWORK_STRING_DIRECTIVE(destination, destination_,
+                               message.destination(destination_),
+                               message.destination = destination_);
+BOOST_NETWORK_STRING_DIRECTIVE(body, body_, message.body(body_),
+                               message.body = body_);
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // __NETWORK_MESSAGE_DIRECTIVES_HPP__
-
+#endif  // __NETWORK_MESSAGE_DIRECTIVES_HPP__

@@ -9,39 +9,33 @@
 #include <boost/network/protocol/http/message/header.hpp>
 #include <utility>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class T1, class T2>
-    T1 & 
-    name(std::pair<T1,T2> const & p) {
-        return p.first;
-    }
+template <class T1, class T2>
+T1 &name(std::pair<T1, T2> const &p) {
+  return p.first;
+}
 
-    inline std::string const &
-    name(request_header_narrow const & h) {
-        return h.name;
-    }
+inline std::string const &name(request_header_narrow const &h) {
+  return h.name;
+}
 
-    inline std::wstring const &
-    name(request_header_wide const &h) {
-        return h.name;
-    }
+inline std::wstring const &name(request_header_wide const &h) { return h.name; }
 
-    
-    inline std::string const &
-    name(response_header_narrow const & h) {
-        return h.name;
-    }
+inline std::string const &name(response_header_narrow const &h) {
+  return h.name;
+}
 
-    inline std::wstring const &
-    name(response_header_wide const &h) {
-        return h.name;
-    }
+inline std::wstring const &name(response_header_wide const &h) {
+  return h.name;
+}
 
 } /* http */
-    
+
 } /* network */
-    
+
 } /* boost */
 
 #endif /* BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_HEADER_NAME_HPP_20101028 */

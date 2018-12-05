@@ -10,20 +10,22 @@
 #include <boost/network/support/is_async.hpp>
 #include <boost/thread/future.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_request;
+template <class Tag>
+struct basic_request;
 
-    template <class Tag, class T>
-    void uri(basic_request<Tag> & request, T const & value) {
-        request.uri(value);
-    }
+template <class Tag, class T>
+void uri(basic_request<Tag>& request, T const& value) {
+  request.uri(value);
+}
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_MODIFIERS_URI_HPP_20100621
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_MODIFIERS_URI_HPP_20100621

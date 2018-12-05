@@ -7,45 +7,41 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_response;
+template <class Tag>
+struct basic_response;
 
-    namespace impl {
+namespace impl {
 
-        template <class Tag>
-        struct version_wrapper {
+template <class Tag>
+struct version_wrapper {
 
-            typedef typename string<Tag>::type string_type;
+  typedef typename string<Tag>::type string_type;
 
-            basic_response<Tag> const & response_;
+  basic_response<Tag> const& response_;
 
-            explicit version_wrapper(basic_response<Tag> const & response)
-                : response_(response) {}
+  explicit version_wrapper(basic_response<Tag> const& response)
+      : response_(response) {}
 
-            version_wrapper(version_wrapper const & other)
-                : response_(other.response_) {}
+  version_wrapper(version_wrapper const& other) : response_(other.response_) {}
 
-            operator string_type () {
-                return response_.version();
-            }
+  operator string_type() { return response_.version(); }
+};
 
-        };
+}  // namespace impl
 
-    } // namespace impl
+template <class Tag>
+inline impl::version_wrapper<Tag> version(basic_response<Tag> const& response) {
+  return impl::version_wrapper<Tag>(response);
+}
 
-    template <class Tag>
-    inline 
-    impl::version_wrapper<Tag>
-    version(basic_response<Tag> const & response) {
-        return impl::version_wrapper<Tag>(response);
-    }
+}  // namespace http
 
-} // namespace http
+}  // namespace network
 
-} // namespace network
+}  // namespace boost
 
-} // namespace boost
-
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_WRAPPERS_VERSION_HPP_20100603
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_WRAPPERS_VERSION_HPP_20100603

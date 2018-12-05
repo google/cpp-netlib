@@ -1,19 +1,21 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>HTTP Response &mdash; cpp-netlib v0.9.4</title>
-    <link rel="stylesheet" href="../_static/cpp-netlib.css" type="text/css" />
+    <title>HTTP Response &mdash; cpp-netlib v0.11.1</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.9.4',
+        VERSION:     '0.11.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,95 +24,87 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="cpp-netlib v0.9.4" href="../index.html" />
+    <link rel="top" title="cpp-netlib v0.11.1" href="../index.html" />
     <link rel="up" title="Reference Manual" href="../reference.html" />
     <link rel="next" title="HTTP Server API" href="http_server.html" />
     <link rel="prev" title="HTTP Request" href="http_request.html" />
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-19815738-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
 
   </head>
   <body>
 
-    <div class="document">
-  <div id="custom-doc" class="yui-t4">
-    <div id="hd">
-      <h1><a href="../index.html">cpp-netlib v0.9.4</a></h1>
-      <div id="global-nav">
-        <a title="Home page" href="../index.html">Home</a>  |
-        <a title="Table of contents" href="../contents.html">Table of contents</a> |
-	<a title="What's new" href="../whats_new.html">What's new</a> |
-	<a title="Getting started" href="../getting_started.html">Getting started</a> |
-	<a title="Examples" href="../examples.html">Examples</a> |
-	<a title="In depth" href="../in_depth.html">In depth</a> |
-	<a title="Reference" href="../reference.html">Reference</a>
-      </div>
-      <div class="nav">
-    &laquo; <a href="http_request.html" title="HTTP Request">previous</a>
-     |
-    <a href="../reference.html" title="Reference Manual" accesskey="U">up</a>
-   |
-    <a href="http_server.html" title="HTTP Server API">next</a> &raquo;</div>
-    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="http_server.html" title="HTTP Server API"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="http_request.html" title="HTTP Request"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">cpp-netlib v0.11.1</a> &raquo;</li>
+          <li><a href="../reference.html" accesskey="U">Reference Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-    <div id="bd">
-      <div id="yui-main">
-        <div class="yui-b">
-          <div class="yui-g" id="reference-http_response">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
             
-  <div class="section" id="cpp-netlib-http-response">
-<h1>HTTP Response<a class="headerlink" href="#cpp-netlib-http-response" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="http-response">
+<h1>HTTP Response<a class="headerlink" href="#http-response" title="Permalink to this headline">¶</a></h1>
 <p>This part of the documentation talks about the publicly accessible API of the
 HTTP Response objects. This section details the <a class="reference internal" href="#response-concept">Response Concept</a> requirements,
 the implemented and required <a class="reference internal" href="#directives">Directives</a>, <a class="reference internal" href="#modifiers">Modifiers</a>, and <a class="reference internal" href="#wrappers">Wrappers</a> that work
 with the HTTP Response objects.</p>
-<div class="section" id="cpp-netlib-response-concept">
-<h2>Response Concept<a class="headerlink" href="#cpp-netlib-response-concept" title="Permalink to this headline">¶</a></h2>
-<p>A type models the Response Concept if it models the <a class="reference external" href="message.html#message-concept">Message Concept</a> and also
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The HTTP server response object is a POD type, which doesn&#8217;t support
+any of the following details. There are only a few fields available in the
+HTTP server response type, which can be seen in
+<tt class="docutils literal"><span class="pre">boost/network/protocol/http/impl/response.ipp</span></tt>.</p>
+</div>
+<div class="section" id="response-concept">
+<h2>Response Concept<a class="headerlink" href="#response-concept" title="Permalink to this headline">¶</a></h2>
+<p>A type models the Response Concept if it models the <a class="reference external" href="../in_depth/message.html#message-concept">Message Concept</a> and also
 supports the following constructs.</p>
 <p><strong>Legend</strong></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">R:</th><td class="field-body">The response type.</td>
+<tr class="field-odd field"><th class="field-name">R:</th><td class="field-body">The response type.</td>
 </tr>
-<tr class="field"><th class="field-name">r:</th><td class="field-body">An instance of R.</td>
+<tr class="field-even field"><th class="field-name">r:</th><td class="field-body">An instance of R.</td>
 </tr>
-<tr class="field"><th class="field-name">S:</th><td class="field-body">The string type.</td>
+<tr class="field-odd field"><th class="field-name">S:</th><td class="field-body">The string type.</td>
 </tr>
-<tr class="field"><th class="field-name">s,e,g:</th><td class="field-body">Instances of S.</td>
+<tr class="field-even field"><th class="field-name">s,e,g:</th><td class="field-body">Instances of S.</td>
 </tr>
-<tr class="field"><th class="field-name">P:</th><td class="field-body">The port type.</td>
+<tr class="field-odd field"><th class="field-name">P:</th><td class="field-body">The port type.</td>
 </tr>
-<tr class="field"><th class="field-name">p:</th><td class="field-body">An instance of P.</td>
+<tr class="field-even field"><th class="field-name">p:</th><td class="field-body">An instance of P.</td>
 </tr>
-<tr class="field"><th class="field-name">V:</th><td class="field-body">The version type.</td>
+<tr class="field-odd field"><th class="field-name">V:</th><td class="field-body">The version type.</td>
 </tr>
-<tr class="field"><th class="field-name">v:</th><td class="field-body">An instance of v.</td>
+<tr class="field-even field"><th class="field-name">v:</th><td class="field-body">An instance of v.</td>
 </tr>
-<tr class="field"><th class="field-name">T:</th><td class="field-body">The status type.</td>
+<tr class="field-odd field"><th class="field-name">T:</th><td class="field-body">The status type.</td>
 </tr>
-<tr class="field"><th class="field-name">t:</th><td class="field-body">An instance of T.</td>
+<tr class="field-even field"><th class="field-name">t:</th><td class="field-body">An instance of T.</td>
 </tr>
-<tr class="field"><th class="field-name">M:</th><td class="field-body">The status message type.</td>
+<tr class="field-odd field"><th class="field-name">M:</th><td class="field-body">The status message type.</td>
 </tr>
-<tr class="field"><th class="field-name">m:</th><td class="field-body">An instance of M.</td>
+<tr class="field-even field"><th class="field-name">m:</th><td class="field-body">An instance of M.</td>
 </tr>
-<tr class="field"><th class="field-name">U:</th><td class="field-body">An unsigned 16-bit int.</td>
+<tr class="field-odd field"><th class="field-name">U:</th><td class="field-body">An unsigned 16-bit int.</td>
 </tr>
-<tr class="field"><th class="field-name">u:</th><td class="field-body">An instance of U.</td>
+<tr class="field-even field"><th class="field-name">u:</th><td class="field-body">An instance of U.</td>
 </tr>
 </tbody>
 </table>
@@ -126,67 +120,67 @@ supports the following constructs.</p>
 <col width="38%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">Construct</th>
+<tr class="row-odd"><th class="head">Construct</th>
 <th class="head">Result</th>
 <th class="head">Description</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><tt class="docutils literal"><span class="pre">R::string_type</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">R::string_type</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>The nested <tt class="docutils literal"><span class="pre">string_type</span></tt>
 type.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">traits::version&lt;R&gt;::type</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">traits::version&lt;R&gt;::type</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">V</span></tt></td>
 <td>The version type associated
 with R.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">traits::status&lt;R&gt;::type</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">traits::status&lt;R&gt;::type</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">T</span></tt></td>
 <td>The status type associated
 with R.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">traits::status_message&lt;R&gt;::type</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">traits::status_message&lt;R&gt;::type</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">M</span></tt></td>
 <td>The status message type
 associated with R.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">r</span> <span class="pre">&lt;&lt;</span> <span class="pre">version(v)</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">r</span> <span class="pre">&lt;&lt;</span> <span class="pre">version(v)</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">R&amp;</span></tt></td>
 <td>Sets the version of <tt class="docutils literal"><span class="pre">r</span></tt>.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">r</span> <span class="pre">&lt;&lt;</span> <span class="pre">status(t)</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">r</span> <span class="pre">&lt;&lt;</span> <span class="pre">status(t)</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">R&amp;</span></tt></td>
 <td>Sets the status of <tt class="docutils literal"><span class="pre">r</span></tt>.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">r</span> <span class="pre">&lt;&lt;</span> <span class="pre">status_message(m)</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">r</span> <span class="pre">&lt;&lt;</span> <span class="pre">status_message(m)</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">R&amp;</span></tt></td>
 <td>Sets the status message of
 <tt class="docutils literal"><span class="pre">r</span></tt>.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">version(r,</span> <span class="pre">v)</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">version(r,</span> <span class="pre">v)</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">void</span></tt></td>
 <td>Sets the version of <tt class="docutils literal"><span class="pre">r</span></tt>.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">status(r,</span> <span class="pre">t)</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">status(r,</span> <span class="pre">t)</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">void</span></tt></td>
 <td>Sets the status of <tt class="docutils literal"><span class="pre">r</span></tt>.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">status_message(r,</span> <span class="pre">m)</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">status_message(r,</span> <span class="pre">m)</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">void</span></tt></td>
 <td>Sets the status message of
 <tt class="docutils literal"><span class="pre">r</span></tt>.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">S</span> <span class="pre">e</span> <span class="pre">=</span> <span class="pre">version(r)</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">S</span> <span class="pre">e</span> <span class="pre">=</span> <span class="pre">version(r)</span></tt></td>
 <td><strong>NA</strong></td>
 <td>Get the version of <tt class="docutils literal"><span class="pre">r</span></tt>.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">U</span> <span class="pre">u</span> <span class="pre">=</span> <span class="pre">status(r)</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">U</span> <span class="pre">u</span> <span class="pre">=</span> <span class="pre">status(r)</span></tt></td>
 <td><strong>NA</strong></td>
 <td>Get the status of <tt class="docutils literal"><span class="pre">r</span></tt>.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">S</span> <span class="pre">g</span> <span class="pre">=</span> <span class="pre">status_message(r)</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">S</span> <span class="pre">g</span> <span class="pre">=</span> <span class="pre">status_message(r)</span></tt></td>
 <td><strong>NA</strong></td>
 <td>Get the status message of
 <tt class="docutils literal"><span class="pre">r</span></tt>.</td>
@@ -194,8 +188,8 @@ associated with R.</td>
 </tbody>
 </table>
 </div>
-<div class="section" id="cpp-netlib-directives">
-<h2>Directives<a class="headerlink" href="#cpp-netlib-directives" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="directives">
+<h2>Directives<a class="headerlink" href="#directives" title="Permalink to this headline">¶</a></h2>
 <p>This section details the provided directives that are provided by
 <tt class="xref py py-mod docutils literal"><span class="pre">cpp-netlib</span></tt>. The section was written to assume that an appropriately
 constructed response instance is either of the following:</p>
@@ -334,8 +328,8 @@ parameter. In this case the type of <tt class="docutils literal"><span class="pr
 parameter. In this case the type of <tt class="docutils literal"><span class="pre">status_</span></tt> is <tt class="docutils literal"><span class="pre">boost::shared_future&lt;boost::uint16_t&gt;</span></tt>.</dd>
 </dl>
 </div>
-<div class="section" id="cpp-netlib-modifiers">
-<h2>Modifiers<a class="headerlink" href="#cpp-netlib-modifiers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="modifiers">
+<h2>Modifiers<a class="headerlink" href="#modifiers" title="Permalink to this headline">¶</a></h2>
 <p>This section details the provided modifiers that are provided by
 <tt class="xref py py-mod docutils literal"><span class="pre">cpp-netlib</span></tt>.</p>
 <dl class="docutils">
@@ -383,8 +377,8 @@ dependent on the <tt class="docutils literal"><span class="pre">Tag</span></tt> 
 dependent on the <tt class="docutils literal"><span class="pre">Tag</span></tt> specialization of <tt class="docutils literal"><span class="pre">basic_response</span></tt>.</dd>
 </dl>
 </div>
-<div class="section" id="cpp-netlib-wrappers">
-<h2>Wrappers<a class="headerlink" href="#cpp-netlib-wrappers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="wrappers">
+<h2>Wrappers<a class="headerlink" href="#wrappers" title="Permalink to this headline">¶</a></h2>
 <p>This section details the provided response wrappers that come with
 <tt class="xref py py-mod docutils literal"><span class="pre">cpp-netlib</span></tt>. Wrappers are used to convert a message into a different type,
 usually providing accessor operations to retrieve just part of the message. This
@@ -412,7 +406,7 @@ provides the body of a given response.</dd>
 <dd>Returns a wrapper convertible to <tt class="docutils literal"><span class="pre">typename</span> <span class="pre">string&lt;Tag&gt;::type</span></tt> that
 provides the version of the given response.</dd>
 <dt><tt class="docutils literal"><span class="pre">template</span> <span class="pre">&lt;class</span> <span class="pre">Tag&gt;</span></tt> <em>unspecified</em> <tt class="docutils literal"><span class="pre">status(basic_response&lt;Tag&gt;</span> <span class="pre">const</span> <span class="pre">&amp;</span> <span class="pre">response)</span></tt></dt>
-<dd>Returns a wrapper convertible to <tt class="docutils literal"><span class="pre">typename</span> <span class="pre">string&lt;Tag&gt;::type</span></tt> that
+<dd>Returns a wrapper convertible to <tt class="docutils literal"><span class="pre">typename</span> <span class="pre">boost::uint16_t</span></tt> that
 provides the status of the given response.</dd>
 <dt><tt class="docutils literal"><span class="pre">template</span> <span class="pre">&lt;class</span> <span class="pre">Tag&gt;</span></tt> <em>unspecified</em> <tt class="docutils literal"><span class="pre">status_message(basic_response&lt;Tag&gt;</span> <span class="pre">const</span> <span class="pre">&amp;</span> <span class="pre">response)</span></tt></dt>
 <dd>Returns a wrapper convertible to <tt class="docutils literal"><span class="pre">typename</span> <span class="pre">string&lt;Tag&gt;::type</span></tt> that
@@ -425,10 +419,6 @@ provides the status message of the given response.</dd>
           </div>
         </div>
       </div>
-      
-        
-        <div class="yui-b" id="sidebar">
-          
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../contents.html">Table Of Contents</a></h3>
@@ -442,36 +432,16 @@ provides the status message of the given response.</dd>
 </li>
 </ul>
 
-  <h3>Browse</h3>
-  <ul>
-    
-      <li>Prev: <a href="http_request.html">HTTP Request</a></li>
-    
-    
-      <li>Next: <a href="http_server.html">HTTP Server API</a></li>
-    
-  </ul>
-  <h3>You are here:</h3>
-  <ul>
-      <li>
-        <a href="../index.html">cpp-netlib v0.9.4</a>
-        
-          <ul><li><a href="../reference.html">Reference Manual</a>
-        
-        <ul><li>HTTP Response</li></ul>
-        </li></ul>
-      </li>
-  </ul>
-
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/reference/http_response.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="http_request.html"
+                        title="previous chapter">HTTP Request</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="http_server.html"
+                        title="next chapter">HTTP Server API</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -483,25 +453,25 @@ provides the status message of the given response.</dd>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-        </div>
-      
-    </div>
-
-    <div id="ft">
-      <div class="nav">
-    &laquo; <a href="http_request.html" title="HTTP Request">previous</a>
-     |
-    <a href="../reference.html" title="Reference Manual" accesskey="U">up</a>
-   |
-    <a href="http_server.html" title="HTTP Server API">next</a> &raquo;</div>
-    </div>
-  </div>
-
       <div class="clearer"></div>
     </div>
-  <div class="footer">
-      documentation automatically generated by <a href="http://sphinx.pocoo.org">Sphinx</a> | style mostly stolen from <a href="http://lettuce.it">lettuce.it</a>
-  </div>
-
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="http_server.html" title="HTTP Server API"
+             >next</a></li>
+        <li class="right" >
+          <a href="http_request.html" title="HTTP Request"
+             >previous</a> |</li>
+        <li><a href="../contents.html">cpp-netlib v0.11.1</a> &raquo;</li>
+          <li><a href="../reference.html" >Reference Manual</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2014, Glyn Matthews, Dean Michael Berris; 2013 Google, Inc..
+      Last updated on Sep 08, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
   </body>
 </html>

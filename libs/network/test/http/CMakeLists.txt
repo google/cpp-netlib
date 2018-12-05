@@ -13,6 +13,29 @@ endif()
 
 if (Boost_FOUND)
     set ( TESTS
+        response_incremental_parser_test
+        request_incremental_parser_test
+	      request_linearize_test
+        )
+    foreach ( test ${TESTS} )
+        add_executable(cpp-netlib-http-${test} ${test}.cpp)
+        add_dependencies(cpp-netlib-http-${test}
+            cppnetlib-uri)
+        target_link_libraries(cpp-netlib-http-${test}
+            ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}
+            cppnetlib-uri)
+	    if (${CMAKE_CXX_COMPILER_ID} MATCHES GNU AND ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+          target_link_libraries(cpp-netlib-http-${test} ws2_32)
+        endif()
+	    if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+	      target_link_libraries(cpp-netlib-http-${test} rt)
+	    endif()
+        set_target_properties(cpp-netlib-http-${test}
+            PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CPP-NETLIB_BINARY_DIR}/tests)
+        add_test(cpp-netlib-http-${test}
+            ${CPP-NETLIB_BINARY_DIR}/tests/cpp-netlib-http-${test})
+    endforeach (test)
+    set ( TESTS
         client_constructor_test
         client_get_test
         client_get_different_port_test
@@ -20,10 +43,6 @@ if (Boost_FOUND)
         client_get_streaming_test
         )
     foreach ( test ${TESTS} )
-        if (${CMAKE_CXX_COMPILER_ID} MATCHES GNU)
-            set_source_files_properties(${test}.cpp
-                PROPERTIES COMPILE_FLAGS "-Wall")
-        endif()
         add_executable(cpp-netlib-http-${test} ${test}.cpp)
         add_dependencies(cpp-netlib-http-${test}
             cppnetlib-uri
@@ -35,6 +54,12 @@ if (Boost_FOUND)
         if (OPENSSL_FOUND)
             target_link_libraries(cpp-netlib-http-${test} ${OPENSSL_LIBRARIES})
         endif()
+	      if (${CMAKE_CXX_COMPILER_ID} MATCHES GNU AND ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+          target_link_libraries(cpp-netlib-http-${test} ws2_32)
+        endif()
+	      if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+	        target_link_libraries(cpp-netlib-http-${test} rt)
+	      endif()
         set_target_properties(cpp-netlib-http-${test}
             PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CPP-NETLIB_BINARY_DIR}/tests)
         add_test(cpp-netlib-http-${test}
@@ -44,15 +69,21 @@ if (Boost_FOUND)
     set ( SERVER_API_TESTS
         server_constructor_test
         server_async_run_stop_concurrency
+        server_header_parser_test
         )
     foreach ( test ${SERVER_API_TESTS} )
-        if (${CMAKE_CXX_COMPILER_ID} MATCHES GNU)
-            set_source_files_properties(${test}.cpp
-                PROPERTIES COMPILE_FLAGS "-Wall")
-        endif()
         add_executable(cpp-netlib-http-${test} ${test}.cpp)
         add_dependencies(cpp-netlib-http-${test} cppnetlib-server-parsers)
         target_link_libraries(cpp-netlib-http-${test} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} cppnetlib-server-parsers)
+        if (OPENSSL_FOUND)
+            target_link_libraries(cpp-netlib-http-${test} ${OPENSSL_LIBRARIES})
+        endif()
+	      if (${CMAKE_CXX_COMPILER_ID} MATCHES GNU AND ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+          target_link_libraries(cpp-netlib-http-${test} ws2_32 wsock32)
+        endif()
+	      if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+	        target_link_libraries(cpp-netlib-http-${test} rt)
+	      endif()
         set_target_properties(cpp-netlib-http-${test}
             PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CPP-NETLIB_BINARY_DIR}/tests)
         add_test(cpp-netlib-http-${test}

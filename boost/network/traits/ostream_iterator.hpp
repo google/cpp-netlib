@@ -11,27 +11,24 @@
 #include <boost/mpl/if.hpp>
 #include <iterator>
 
-namespace boost { namespace network {
+namespace boost {
+namespace network {
 
-    template <class Tag>
-    struct unsupported_tag;
+template <class Tag>
+struct unsupported_tag;
 
-    template <class Tag, class Input>
-    struct ostream_iterator;
+template <class Tag, class Input>
+struct ostream_iterator;
 
-    template <class Tag, class Input>
-    struct ostream_iterator : mpl::if_<
-        is_default_string<Tag>,
-        std::ostream_iterator<Input, char>,
-        typename mpl::if_<
-            is_default_wstring<Tag>,
-            std::ostream_iterator<Input, wchar_t>,
-            unsupported_tag<Tag>
-        >::type
-    > {};
+template <class Tag, class Input>
+struct ostream_iterator
+    : mpl::if_<is_default_string<Tag>, std::ostream_iterator<Input, char>,
+               typename mpl::if_<is_default_wstring<Tag>,
+                                 std::ostream_iterator<Input, wchar_t>,
+                                 unsupported_tag<Tag> >::type> {};
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_TRAITS_OSTREAM_ITERATOR_HPP_20100815
+#endif  // BOOST_NETWORK_TRAITS_OSTREAM_ITERATOR_HPP_20100815

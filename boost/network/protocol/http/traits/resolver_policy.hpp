@@ -14,28 +14,24 @@
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/and.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct unsupported_tag;
+template <class Tag>
+struct unsupported_tag;
 
-    template <class Tag>
-    struct resolver_policy :
-        mpl::if_<
-            mpl::and_< is_async<Tag>,is_http<Tag> >,
-            policies::async_resolver<Tag>,
-            typename mpl::if_<is_http<Tag>,
-                policies::sync_resolver<Tag>,
-                unsupported_tag<Tag>
-            >::type
-            >
-    {};
+template <class Tag>
+struct resolver_policy
+    : mpl::if_<mpl::and_<is_async<Tag>, is_http<Tag> >,
+               policies::async_resolver<Tag>,
+               typename mpl::if_<is_http<Tag>, policies::sync_resolver<Tag>,
+                                 unsupported_tag<Tag> >::type> {};
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_RESOLVER_POLICY_20091214
-
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_RESOLVER_POLICY_20091214

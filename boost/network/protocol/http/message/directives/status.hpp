@@ -16,68 +16,61 @@
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/cstdint.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_response;
-    
-    struct status_directive {
+template <class Tag>
+struct basic_response;
 
-        boost::variant<
-            boost::uint16_t,
-            boost::shared_future<boost::uint16_t>
-        > status_;
+struct status_directive {
 
-        explicit status_directive(boost::uint16_t status)
-            : status_(status) {}
+  boost::variant<boost::uint16_t, boost::shared_future<boost::uint16_t> >
+      status_;
 
-        explicit status_directive(boost::shared_future<boost::uint16_t> const & status)
-            : status_(status) {}
+  explicit status_directive(boost::uint16_t status) : status_(status) {}
 
-        status_directive(status_directive const & other)
-            : status_(other.status_) {}
+  explicit status_directive(boost::shared_future<boost::uint16_t> const &status)
+      : status_(status) {}
 
-        template <class Tag>
-        struct value
-            : mpl::if_<
-                is_async<Tag>,
-                boost::shared_future<boost::uint16_t>,
-                boost::uint16_t
-            >
-        {};
+  status_directive(status_directive const &other) : status_(other.status_) {}
 
-        template <class Tag>
-        struct status_visitor : boost::static_visitor<> {
-            basic_response<Tag> const & response;
-            status_visitor(basic_response<Tag> const & response)
-                : response(response) {}
+  template <class Tag>
+  struct value : mpl::if_<is_async<Tag>, boost::shared_future<boost::uint16_t>,
+                          boost::uint16_t> {};
 
-            void operator()(typename value<Tag>::type const & status_) const {
-                response.status(status_);
-            }
+  template <class Tag>
+  struct status_visitor : boost::static_visitor<> {
+    basic_response<Tag> const &response;
+    status_visitor(basic_response<Tag> const &response) : response(response) {}
 
-            template <class T>
-            void operator()(T const &) const {
-                // FIXME fail here!
-            }
-        };
-
-        template <class Tag> basic_response<Tag> const & operator() (basic_response<Tag> const & response) const {
-            apply_visitor(status_visitor<Tag>(response), status_);
-            return response;
-        }
-
-    };
-
-    template <class T>
-    inline status_directive const status(T const & status_) {
-        return status_directive(status_);
+    void operator()(typename value<Tag>::type const &status_) const {
+      response.status(status_);
     }
 
-} // namespace http
+    template <class T>
+    void operator()(T const &) const {
+      // FIXME fail here!
+    }
+  };
 
-} // namespace network
+  template <class Tag>
+  basic_response<Tag> const &operator()(basic_response<Tag> const &response)
+      const {
+    apply_visitor(status_visitor<Tag>(response), status_);
+    return response;
+  }
+};
 
-} // namespace boost
+template <class T>
+inline status_directive const status(T const &status_) {
+  return status_directive(status_);
+}
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_DIRECTIVES_STATUS_HPP_20100603
+}  // namespace http
+
+}  // namespace network
+
+}  // namespace boost
+
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_DIRECTIVES_STATUS_HPP_20100603

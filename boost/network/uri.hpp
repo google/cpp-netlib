@@ -9,4 +9,3 @@
 #include <boost/network/uri/uri.hpp>
 
 #endif
-

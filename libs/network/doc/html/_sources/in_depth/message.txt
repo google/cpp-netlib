@@ -31,8 +31,8 @@ implementation.
 Message Concept
 ```````````````
 
-.. warning:: The message is under review at present and will be
-    	     subject to change in newer versions.
+.. warning:: The Message framework is deprecated in the 0.11 release, and will
+             be removed in future versions of the library.
 
 The Message Concept specifies what the valid operations on a message
 are as well as what messages look like semantically. The following

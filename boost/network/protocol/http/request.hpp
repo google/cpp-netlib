@@ -47,38 +47,38 @@
 #include <boost/network/message/transformers.hpp>
 
 // forward declarations
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-    struct basic_request;
+template <class Tag>
+struct basic_request;
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
 #include <boost/network/protocol/http/impl/request.hpp>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag, class Directive>
-    basic_request<Tag> & operator<<(
-        basic_request<Tag> & message,
-        Directive const & directive
-        )
-    {
-        directive(message);
-        return message;
-    }
+template <class Tag, class Directive>
+basic_request<Tag>& operator<<(basic_request<Tag>& message,
+                               Directive const& directive) {
+  directive(message);
+  return message;
+}
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
 #include <boost/network/protocol/http/request_concept.hpp>
 
-#endif // __NETWORK_PROTOCOL_HTTP_REQUEST_20070908-1_HPP__
-
+#endif  // __NETWORK_PROTOCOL_HTTP_REQUEST_20070908-1_HPP__

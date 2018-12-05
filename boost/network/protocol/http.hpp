@@ -16,4 +16,4 @@
 #include <boost/network/protocol/http/client.hpp>
 #include <boost/network/protocol/http/errors.hpp>
 
-#endif // __NETWORK_PROTOCOL_HTTP_20070908-1_HPP__
+#endif  // __NETWORK_PROTOCOL_HTTP_20070908-1_HPP__

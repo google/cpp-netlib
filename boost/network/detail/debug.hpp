@@ -12,14 +12,16 @@
     the macro amounts to a no-op.
 */
 #ifdef BOOST_NETWORK_DEBUG
-#  include <iostream>
-#  ifndef BOOST_NETWORK_MESSAGE
-#    define BOOST_NETWORK_MESSAGE(msg) std::cerr << "[DEBUG " << __FILE__ << ':' << __LINE__ << "]: " << msg << std::endl;
-#  endif
+#include <iostream>
+#ifndef BOOST_NETWORK_MESSAGE
+#define BOOST_NETWORK_MESSAGE(msg)                                      \
+  std::cerr << "[DEBUG " << __FILE__ << ':' << __LINE__ << "]: " << msg \
+            << std::endl;
+#endif
 #else
-#  ifndef BOOST_NETWORK_MESSAGE
-#    define BOOST_NETWORK_MESSAGE(msg)
-#  endif
+#ifndef BOOST_NETWORK_MESSAGE
+#define BOOST_NETWORK_MESSAGE(msg)
+#endif
 #endif
 
 #endif /* end of include guard: BOOST_NETWORK_DEBUG_HPP_20110410 */

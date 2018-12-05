@@ -13,24 +13,20 @@
 #include <list>
 #include <vector>
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-        struct chunk_cache {
-            // TODO define the allocator using an allocator_traits?
-            typedef std::list<
-                std::vector<
-                    typename char_<Tag>::type
-                    >
-                > type;
-        };
+template <class Tag>
+struct chunk_cache {
+  // TODO define the allocator using an allocator_traits?
+  typedef std::list<std::vector<typename char_<Tag>::type> > type;
+};
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_TRAITS_CHUNK_CACHE_CONTAINER_IPP
-
-
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_TRAITS_CHUNK_CACHE_CONTAINER_IPP

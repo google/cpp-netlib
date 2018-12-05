@@ -1,0 +1,46 @@
+language:
+    - cpp
+
+compiler:
+    - gcc
+    - clang
+
+env:
+    - BOOST_VER=1.54.0 BUILD_SHARED_LIBS="ON" CMAKE_BUILD_TYPE="Release"
+    - BOOST_VER=1.54.0 BUILD_SHARED_LIBS="OFF" CMAKE_BUILD_TYPE="Release"
+    - BOOST_VER=1.54.0 BUILD_SHARED_LIBS="ON" CMAKE_BUILD_TYPE="Debug"
+    - BOOST_VER=1.54.0 BUILD_SHARED_LIBS="OFF" CMAKE_BUILD_TYPE="Debug"
+    - BOOST_VER=1.55.0 BUILD_SHARED_LIBS="ON" CMAKE_BUILD_TYPE="Release"
+    - BOOST_VER=1.55.0 BUILD_SHARED_LIBS="OFF" CMAKE_BUILD_TYPE="Release"
+    - BOOST_VER=1.55.0 BUILD_SHARED_LIBS="ON" CMAKE_BUILD_TYPE="Debug"
+    - BOOST_VER=1.55.0 BUILD_SHARED_LIBS="OFF" CMAKE_BUILD_TYPE="Debug"
+
+before_install:
+    - if [ "${CXX}" == "g++" ] || [ ${BUILD_SHARED_LIBS} = "OFF" ]; then
+        sudo add-apt-repository ppa:boost-latest/ppa --yes;
+        sudo apt-get update;
+      fi
+    - if [ "${CXX}" == "clang++" ] && [ ${BUILD_SHARED_LIBS} = "ON" ]; then
+        curl -s http://cznic.dl.sourceforge.net/project/boost/boost/${BOOST_VER}/boost_${BOOST_VER//./_}.tar.bz2|tar xfj - -C ..;
+        export BOOST_ROOT=$TRAVIS_BUILD_DIR/../boost_${BOOST_VER//./_};
+      fi
+
+install:
+    - if [ "${CXX}" == "g++" ] || [ ${BUILD_SHARED_LIBS} = "OFF" ]; then
+        sudo apt-get install libboost${BOOST_VER/%.0/}-all-dev;
+      fi
+    - if [ "${CXX}" == "clang++" ] && [ ${BUILD_SHARED_LIBS} = "ON" ]; then
+        cd $BOOST_ROOT;
+        ./bootstrap.sh --with-toolset=$CC;
+        ./b2 -j4 --stagedir=.;
+        cd -;
+      fi
+
+script:
+    - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+            -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
+    - make
+    - make test
+
+after_failure:
+    - cat Testing/Temporary/LastTest.log 

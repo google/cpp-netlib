@@ -11,6 +11,6 @@
 // Author: Dean Michael Berris
 // Date Created: Oct. 08, 2007
 
-#include <boost/network/protocol/http.hpp> // include HTTP implementation
+#include <boost/network/protocol/http.hpp>  // include HTTP implementation
 
-#endif // __NETWORK_PROTOCOLS_20070908-1_HPP__
+#endif  // __NETWORK_PROTOCOLS_20070908-1_HPP__

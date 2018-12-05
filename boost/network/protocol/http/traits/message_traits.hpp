@@ -13,40 +13,42 @@
 #ifndef BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_TRAITS_HPP
 #define BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_TRAITS_HPP
 
-namespace boost { namespace network { namespace http {
+namespace boost {
+namespace network {
+namespace http {
 
-    template <class Tag>
-        struct delimiters;
+template <class Tag>
+struct delimiters;
 
-    template <class Tag>
-        struct headers_;
+template <class Tag>
+struct headers_;
 
-    template <class Tag>
-        struct content;
+template <class Tag>
+struct content;
 
-    template <class Tag>
-        struct request_methods;
+template <class Tag>
+struct request_methods;
 
-    template <class Tag>
-        struct response_message;
+template <class Tag>
+struct response_message;
 
-    template <class Tag>
-        struct response_code;
+template <class Tag>
+struct response_code;
 
-    template <class Tag>
-        struct query_container;
+template <class Tag>
+struct query_container;
 
-    template <class Tag>
-        struct cookies_container;
+template <class Tag>
+struct cookies_container;
 
-    template <class Tag>
-        struct chunk_cache;
+template <class Tag>
+struct chunk_cache;
 
-} // namespace http
+}  // namespace http
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
 // Defer definition in implementation files
 #include <boost/network/protocol/http/traits/impl/delimiters.ipp>
@@ -60,4 +62,4 @@ namespace boost { namespace network { namespace http {
 #include <boost/network/protocol/http/traits/impl/cookies_container.ipp>
 #include <boost/network/protocol/http/traits/impl/chunk_cache.ipp>
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_TRAITS_HPP
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_TRAITS_HPP

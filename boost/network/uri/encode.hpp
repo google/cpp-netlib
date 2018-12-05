@@ -3,29 +3,22 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef __BOOST_NETWORK_URI_ENCODE_INC__
-# define __BOOST_NETWORK_URI_ENCODE_INC__
+#define __BOOST_NETWORK_URI_ENCODE_INC__
 
-
-# include <boost/iterator/iterator_traits.hpp>
-# include <boost/iterator/transform_iterator.hpp>
-# include <boost/range/begin.hpp>
-# include <boost/range/end.hpp>
-# include <cassert>
-
+#include <boost/iterator/iterator_traits.hpp>
+#include <boost/iterator/transform_iterator.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <cassert>
 
 namespace boost {
 namespace network {
 namespace uri {
 namespace detail {
-template <
-    typename CharT
-    >
-inline
-CharT hex_to_letter(CharT in) {
-    switch (in)
-    {
+template <typename CharT>
+inline CharT hex_to_letter(CharT in) {
+  switch (in) {
     case 0:
     case 1:
     case 2:
@@ -36,26 +29,21 @@ CharT hex_to_letter(CharT in) {
     case 7:
     case 8:
     case 9:
-        return in + '0';
+      return in + '0';
     case 10:
     case 11:
     case 12:
     case 13:
     case 14:
     default:
-        return in - 10 + 'A';
-    }
-    return CharT();
+      return in - 10 + 'A';
+  }
+  return CharT();
 }
 
-
-template <
-    typename CharT,
-    class OutputIterator
-    >
+template <typename CharT, class OutputIterator>
 void encode_char(CharT in, OutputIterator &out) {
-    switch (in)
-    {
+  switch (in) {
     case 'a':
     case 'A':
     case 'b':
@@ -123,54 +111,43 @@ void encode_char(CharT in, OutputIterator &out) {
     case '_':
     case '~':
     case '/':
-        out++ = in;
-    break;
+      out++ = in;
+      break;
     default:
-        out++ = '%';
-        out++ = hex_to_letter(in >> 4);
-        out++ = hex_to_letter(in & 0x0f);
-        ;
-    }
+      out++ = '%';
+      out++ = hex_to_letter(in >> 4);
+      out++ = hex_to_letter(in & 0x0f);
+      ;
+  }
 }
-} // namespace detail
+}  // namespace detail
 
-template <
-    class InputIterator,
-    class OutputIterator
-    >
+template <class InputIterator, class OutputIterator>
 OutputIterator encode(const InputIterator &in_begin,
                       const InputIterator &in_end,
                       const OutputIterator &out_begin) {
-    typedef typename boost::iterator_value<InputIterator>::type value_type;
-
-    InputIterator it = in_begin;
-    OutputIterator out = out_begin;
-    while (it != in_end) {
-        detail::encode_char(*it, out);
-        ++it;
-    }
-    return out;
+  InputIterator it = in_begin;
+  OutputIterator out = out_begin;
+  while (it != in_end) {
+    detail::encode_char(*it, out);
+    ++it;
+  }
+  return out;
 }
 
-template <
-    class SinglePassRange,
-    class OutputIterator
-    >
-inline
-OutputIterator encode(const SinglePassRange &range,
-                      const OutputIterator &out) {
-    return encode(boost::begin(range), boost::end(range), out);
+template <class SinglePassRange, class OutputIterator>
+inline OutputIterator encode(const SinglePassRange &range,
+                             const OutputIterator &out) {
+  return encode(boost::begin(range), boost::end(range), out);
 }
 
-inline
-std::string encoded(const std::string &input) {
-    std::string encoded;
-    encode(input, std::back_inserter(encoded));
-    return encoded;
+inline std::string encoded(const std::string &input) {
+  std::string encoded;
+  encode(input, std::back_inserter(encoded));
+  return encoded;
 }
-} // namespace uri
-} // namespace network
-} // namespace boost
+}  // namespace uri
+}  // namespace network
+}  // namespace boost
 
-
-#endif // __BOOST_NETWORK_URI_ENCODE_INC__
+#endif  // __BOOST_NETWORK_URI_ENCODE_INC__

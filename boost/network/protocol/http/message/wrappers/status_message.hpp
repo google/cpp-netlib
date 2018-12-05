@@ -1,51 +1,58 @@
 #ifndef BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_WRAPPERS_STATUS_MESSAGE_HPP_20100603
 #define BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_WRAPPERS_STATUS_MESSAGE_HPP_20100603
 
-// Copyright 2010 (c) Dean Michael Berris
+// Copyright 2010 (c) Dean Michael Berris <dberris@google.com>
 // Copyright 2010 (c) Sinefunc, Inc.
+// Copyright 2014 (c) Google, Inc.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-namespace boost { namespace network { namespace http {
+#include <boost/network/traits/string.hpp>
 
-    template <class Tag>
-    struct basic_response;
+namespace boost {
+namespace network {
+namespace http {
 
-    namespace impl {
+template <class Tag>
+struct basic_response;
 
-        template <class Tag>
-        struct status_message_wrapper {
+namespace impl {
 
-            typedef typename string<Tag>::type string_type;
+template <class Tag>
+struct status_message_wrapper {
 
-            basic_response<Tag> const & response_;
+  typedef typename string<Tag>::type string_type;
 
-            explicit status_message_wrapper(basic_response<Tag> const & response)
-                : response_(response) {}
+  basic_response<Tag> const& response_;
 
-            status_message_wrapper(status_message_wrapper const & other)
-                : response_(other.response_) {}
+  explicit status_message_wrapper(basic_response<Tag> const& response)
+      : response_(response) {}
 
-            operator string_type () {
-                return response_.status_message();
-            }
+  status_message_wrapper(status_message_wrapper const& other)
+      : response_(other.response_) {}
 
-        };
+  operator string_type() const { return response_.status_message(); }
+};
 
-    } // namespace impl
+template <class Tag>
+inline std::ostream& operator<<(std::ostream& os,
+                                const status_message_wrapper<Tag>& wrapper) {
+  return os << static_cast<typename string<Tag>::type>(wrapper);
+}
 
-    template <class Tag>
-    inline 
-    impl::status_message_wrapper<Tag>
-    status_message(basic_response<Tag> const & response) {
-        return impl::status_message_wrapper<Tag>(response);
-    }
+}  // namespace impl
 
-} // namespace http
+template <class Tag>
+inline impl::status_message_wrapper<Tag> status_message(
+    basic_response<Tag> const& response) {
+  return impl::status_message_wrapper<Tag>(response);
+}
 
-} // namespace network
+}  // namespace http
 
-} // namespace boost
+}  // namespace network
 
-#endif // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_WRAPPER_STATUS_MESSAGE_HPP_20100603
+}  // namespace boost
+
+#endif  // BOOST_NETWORK_PROTOCOL_HTTP_MESSAGE_WRAPPER_STATUS_MESSAGE_HPP_20100603

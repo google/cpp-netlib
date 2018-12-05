@@ -1,19 +1,21 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>HTTP Request &mdash; cpp-netlib v0.9.4</title>
-    <link rel="stylesheet" href="../_static/cpp-netlib.css" type="text/css" />
+    <title>HTTP Request &mdash; cpp-netlib v0.11.1</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.9.4',
+        VERSION:     '0.11.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,61 +24,46 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="cpp-netlib v0.9.4" href="../index.html" />
+    <link rel="top" title="cpp-netlib v0.11.1" href="../index.html" />
     <link rel="up" title="Reference Manual" href="../reference.html" />
     <link rel="next" title="HTTP Response" href="http_response.html" />
     <link rel="prev" title="HTTP Client API" href="http_client.html" />
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-19815738-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
 
   </head>
   <body>
 
-    <div class="document">
-  <div id="custom-doc" class="yui-t4">
-    <div id="hd">
-      <h1><a href="../index.html">cpp-netlib v0.9.4</a></h1>
-      <div id="global-nav">
-        <a title="Home page" href="../index.html">Home</a>  |
-        <a title="Table of contents" href="../contents.html">Table of contents</a> |
-	<a title="What's new" href="../whats_new.html">What's new</a> |
-	<a title="Getting started" href="../getting_started.html">Getting started</a> |
-	<a title="Examples" href="../examples.html">Examples</a> |
-	<a title="In depth" href="../in_depth.html">In depth</a> |
-	<a title="Reference" href="../reference.html">Reference</a>
-      </div>
-      <div class="nav">
-    &laquo; <a href="http_client.html" title="HTTP Client API">previous</a>
-     |
-    <a href="../reference.html" title="Reference Manual" accesskey="U">up</a>
-   |
-    <a href="http_response.html" title="HTTP Response">next</a> &raquo;</div>
-    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="http_response.html" title="HTTP Response"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="http_client.html" title="HTTP Client API"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">cpp-netlib v0.11.1</a> &raquo;</li>
+          <li><a href="../reference.html" accesskey="U">Reference Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-    <div id="bd">
-      <div id="yui-main">
-        <div class="yui-b">
-          <div class="yui-g" id="reference-http_request">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
             
-  <div class="section" id="cpp-netlib-http-request">
-<h1>HTTP Request<a class="headerlink" href="#cpp-netlib-http-request" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="http-request">
+<h1>HTTP Request<a class="headerlink" href="#http-request" title="Permalink to this headline">¶</a></h1>
 <p>This part of the documentation talks about the publicly accessible API of the
 HTTP Request objects. This section details the <a class="reference internal" href="#request-concepts">Request Concepts</a> requirements,
 the implemented and required <a class="reference internal" href="#directives">Directives</a>, <a class="reference internal" href="#modifiers">Modifiers</a>, and <a class="reference internal" href="#wrappers">Wrappers</a> that work
 with the HTTP Request objects.</p>
-<div class="section" id="cpp-netlib-request-concepts">
-<h2>Request Concepts<a class="headerlink" href="#cpp-netlib-request-concepts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="request-concepts">
+<h2>Request Concepts<a class="headerlink" href="#request-concepts" title="Permalink to this headline">¶</a></h2>
 <p>There are two generally supported Request Concepts implemented in the library.
 The first of two is the <a class="reference internal" href="#normal-client-request-concept">Normal Client Request Concept</a> and the second is the
 <a class="reference internal" href="#pod-server-request-concept">Pod Server Request Concept</a>.</p>
@@ -91,26 +78,26 @@ nested <tt class="docutils literal"><span class="pre">tag</span></tt> type and w
 Simply, if the Request type&#8217;s nested <tt class="docutils literal"><span class="pre">tag</span></tt> type derives from
 <tt class="docutils literal"><span class="pre">boost::network::tags::pod</span></tt> then it chooses to enforce the <a class="reference internal" href="#pod-server-request-concept">Pod Server Request
 Concept</a>, otherwise it chooses the <a class="reference internal" href="#normal-client-request-concept">Normal Client Request Concept</a>.</p>
-<div class="section" id="cpp-netlib-normal-client-request-concept">
-<h3>Normal Client Request Concept<a class="headerlink" href="#cpp-netlib-normal-client-request-concept" title="Permalink to this headline">¶</a></h3>
-<p>A type models the Normal Client Request Concept if it models the <a class="reference external" href="message.html#message-concept">Message
+<div class="section" id="normal-client-request-concept">
+<h3>Normal Client Request Concept<a class="headerlink" href="#normal-client-request-concept" title="Permalink to this headline">¶</a></h3>
+<p>A type models the Normal Client Request Concept if it models the <a class="reference external" href="../in_depth/message.html#message-concept">Message
 Concept</a> and also supports the following constructs.</p>
 <p><strong>Legend</strong></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">R:</th><td class="field-body">The request type.</td>
+<tr class="field-odd field"><th class="field-name">R:</th><td class="field-body">The request type.</td>
 </tr>
-<tr class="field"><th class="field-name">r:</th><td class="field-body">An instance of R.</td>
+<tr class="field-even field"><th class="field-name">r:</th><td class="field-body">An instance of R.</td>
 </tr>
-<tr class="field"><th class="field-name">S:</th><td class="field-body">The string type.</td>
+<tr class="field-odd field"><th class="field-name">S:</th><td class="field-body">The string type.</td>
 </tr>
-<tr class="field"><th class="field-name">s:</th><td class="field-body">An instance of S.</td>
+<tr class="field-even field"><th class="field-name">s:</th><td class="field-body">An instance of S.</td>
 </tr>
-<tr class="field"><th class="field-name">P:</th><td class="field-body">The port type.</td>
+<tr class="field-odd field"><th class="field-name">P:</th><td class="field-body">The port type.</td>
 </tr>
-<tr class="field"><th class="field-name">p:</th><td class="field-body">An instance of P.</td>
+<tr class="field-even field"><th class="field-name">p:</th><td class="field-body">An instance of P.</td>
 </tr>
 </tbody>
 </table>
@@ -121,88 +108,88 @@ Concept</a> and also supports the following constructs.</p>
 <col width="53%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">Construct</th>
+<tr class="row-odd"><th class="head">Construct</th>
 <th class="head">Result</th>
 <th class="head">Description</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><tt class="docutils literal"><span class="pre">R::string_type</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">R::string_type</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>The nested <tt class="docutils literal"><span class="pre">string_type</span></tt> type.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">R::port_type</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">R::port_type</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">P</span></tt></td>
 <td>The nested <tt class="docutils literal"><span class="pre">port_type</span></tt> type.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">R</span> <span class="pre">r(s)</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">R</span> <span class="pre">r(s)</span></tt></td>
 <td><strong>NA</strong></td>
 <td>Construct a Request with an <tt class="docutils literal"><span class="pre">s</span></tt>
 provided. This treats <tt class="docutils literal"><span class="pre">s</span></tt> as the URI
 to where the request is destined for.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">host(request)</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">host(request)</span></tt></td>
 <td>Convertible
 to <tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>Return the host to where the request
 is destined for.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">port(request)</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">port(request)</span></tt></td>
 <td>Convertible
 to <tt class="docutils literal"><span class="pre">P</span></tt></td>
 <td>Return the port to where the request
 is destined for.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">path(request)</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">path(request)</span></tt></td>
 <td>Convertible
 to <tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>Return the path included in the URI.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">query(request)</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">query(request)</span></tt></td>
 <td>Convertible
 to <tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>Return the query part of the URI.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">anchor(request)</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">anchor(request)</span></tt></td>
 <td>Convertible
 to <tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>Return the anchor part of the URI.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">protocol(request)</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">protocol(request)</span></tt></td>
 <td>Convertible
 to <tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>Return the protocol/scheme part of the
 URI.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">r</span> <span class="pre">&lt;&lt;</span> <span class="pre">uri(s)</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">r</span> <span class="pre">&lt;&lt;</span> <span class="pre">uri(s)</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">R&amp;</span></tt></td>
 <td>Set the URI of the request.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">uri(r,</span> <span class="pre">s)</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">uri(r,</span> <span class="pre">s)</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">void</span></tt></td>
 <td>Set the URI of the request.</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="cpp-netlib-pod-server-request-concept">
-<h3>Pod Server Request Concept<a class="headerlink" href="#cpp-netlib-pod-server-request-concept" title="Permalink to this headline">¶</a></h3>
-<p>A type models the Pod Server Request Concept if it models the <a class="reference external" href="message.html#message-concept">Message Concept</a>
+<div class="section" id="pod-server-request-concept">
+<h3>Pod Server Request Concept<a class="headerlink" href="#pod-server-request-concept" title="Permalink to this headline">¶</a></h3>
+<p>A type models the Pod Server Request Concept if it models the <a class="reference external" href="../in_depth/message.html#message-concept">Message Concept</a>
 and also supports the following constructs.</p>
 <p><strong>Legend</strong></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">R:</th><td class="field-body">The request type.</td>
+<tr class="field-odd field"><th class="field-name">R:</th><td class="field-body">The request type.</td>
 </tr>
-<tr class="field"><th class="field-name">r:</th><td class="field-body">An instance of R.</td>
+<tr class="field-even field"><th class="field-name">r:</th><td class="field-body">An instance of R.</td>
 </tr>
-<tr class="field"><th class="field-name">S:</th><td class="field-body">The string type.</td>
+<tr class="field-odd field"><th class="field-name">S:</th><td class="field-body">The string type.</td>
 </tr>
-<tr class="field"><th class="field-name">I:</th><td class="field-body">An unsigned 8 bit integer.</td>
+<tr class="field-even field"><th class="field-name">I:</th><td class="field-body">An unsigned 8 bit integer.</td>
 </tr>
-<tr class="field"><th class="field-name">V:</th><td class="field-body">The vector type for headers.</td>
+<tr class="field-odd field"><th class="field-name">V:</th><td class="field-body">The vector type for headers.</td>
 </tr>
 </tbody>
 </table>
@@ -213,50 +200,50 @@ and also supports the following constructs.</p>
 <col width="49%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">Construct</th>
+<tr class="row-odd"><th class="head">Construct</th>
 <th class="head">Result</th>
 <th class="head">Description</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><tt class="docutils literal"><span class="pre">R::string_type</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">R::string_type</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>The nested <tt class="docutils literal"><span class="pre">string_type</span></tt> type.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">R::headers_container_type</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">R::headers_container_type</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">V</span></tt></td>
 <td>The nested
 <tt class="docutils literal"><span class="pre">headers_container_type</span></tt> type.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">r.source</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">r.source</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>The nested source of the request.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">r.method</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">r.method</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>The method of the request.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">r.destination</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">r.destination</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>The destination of the request.
 This is normally the URI of the
 request.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">r.version_major</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">r.version_major</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">I</span></tt></td>
 <td>The major version number part of
 the request.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">r.version_minor</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">r.version_minor</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">I</span></tt></td>
 <td>The minor version number part of
 the request.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">r.headers</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">r.headers</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">V</span></tt></td>
 <td>The vector of headers.</td>
 </tr>
-<tr><td><tt class="docutils literal"><span class="pre">r.body</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">r.body</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">S</span></tt></td>
 <td>The body of the request.</td>
 </tr>
@@ -264,8 +251,8 @@ the request.</td>
 </table>
 </div>
 </div>
-<div class="section" id="cpp-netlib-directives">
-<h2>Directives<a class="headerlink" href="#cpp-netlib-directives" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="directives">
+<h2>Directives<a class="headerlink" href="#directives" title="Permalink to this headline">¶</a></h2>
 <p>This section details the provided directives that are provided by
 <tt class="xref py py-mod docutils literal"><span class="pre">cpp-netlib</span></tt>. The section was written to assume that an appropriately
 constructed request instance is either of the following:</p>
@@ -337,8 +324,8 @@ parameter. In this case the type of the body is an <tt class="docutils literal">
 parameter. In this case the type of the body is an <tt class="docutils literal"><span class="pre">std::wstring</span></tt>.</dd>
 </dl>
 </div>
-<div class="section" id="cpp-netlib-modifiers">
-<h2>Modifiers<a class="headerlink" href="#cpp-netlib-modifiers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="modifiers">
+<h2>Modifiers<a class="headerlink" href="#modifiers" title="Permalink to this headline">¶</a></h2>
 <p>This section details the provided modifiers that are provided by
 <tt class="xref py py-mod docutils literal"><span class="pre">cpp-netlib</span></tt>.</p>
 <dl class="docutils">
@@ -362,8 +349,8 @@ parameter is dependent on the <tt class="docutils literal"><span class="pre">Tag
 dependent on the <tt class="docutils literal"><span class="pre">Tag</span></tt> specialization of <tt class="docutils literal"><span class="pre">basic_request</span></tt>.</dd>
 </dl>
 </div>
-<div class="section" id="cpp-netlib-wrappers">
-<h2>Wrappers<a class="headerlink" href="#cpp-netlib-wrappers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="wrappers">
+<h2>Wrappers<a class="headerlink" href="#wrappers" title="Permalink to this headline">¶</a></h2>
 <p>This section details the provided request wrappers that come with
 <tt class="xref py py-mod docutils literal"><span class="pre">cpp-netlib</span></tt>. Wrappers are used to convert a message into a different type,
 usually providing accessor operations to retrieve just part of the message. This
@@ -395,10 +382,6 @@ provides the body of a given request.</dd>
           </div>
         </div>
       </div>
-      
-        
-        <div class="yui-b" id="sidebar">
-          
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../contents.html">Table Of Contents</a></h3>
@@ -416,36 +399,16 @@ provides the body of a given request.</dd>
 </li>
 </ul>
 
-  <h3>Browse</h3>
-  <ul>
-    
-      <li>Prev: <a href="http_client.html">HTTP Client API</a></li>
-    
-    
-      <li>Next: <a href="http_response.html">HTTP Response</a></li>
-    
-  </ul>
-  <h3>You are here:</h3>
-  <ul>
-      <li>
-        <a href="../index.html">cpp-netlib v0.9.4</a>
-        
-          <ul><li><a href="../reference.html">Reference Manual</a>
-        
-        <ul><li>HTTP Request</li></ul>
-        </li></ul>
-      </li>
-  </ul>
-
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/reference/http_request.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="http_client.html"
+                        title="previous chapter">HTTP Client API</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="http_response.html"
+                        title="next chapter">HTTP Response</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -457,25 +420,25 @@ provides the body of a given request.</dd>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-        </div>
-      
-    </div>
-
-    <div id="ft">
-      <div class="nav">
-    &laquo; <a href="http_client.html" title="HTTP Client API">previous</a>
-     |
-    <a href="../reference.html" title="Reference Manual" accesskey="U">up</a>
-   |
-    <a href="http_response.html" title="HTTP Response">next</a> &raquo;</div>
-    </div>
-  </div>
-
       <div class="clearer"></div>
     </div>
-  <div class="footer">
-      documentation automatically generated by <a href="http://sphinx.pocoo.org">Sphinx</a> | style mostly stolen from <a href="http://lettuce.it">lettuce.it</a>
-  </div>
-
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="http_response.html" title="HTTP Response"
+             >next</a></li>
+        <li class="right" >
+          <a href="http_client.html" title="HTTP Client API"
+             >previous</a> |</li>
+        <li><a href="../contents.html">cpp-netlib v0.11.1</a> &raquo;</li>
+          <li><a href="../reference.html" >Reference Manual</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2014, Glyn Matthews, Dean Michael Berris; 2013 Google, Inc..
+      Last updated on Sep 08, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
   </body>
 </html>

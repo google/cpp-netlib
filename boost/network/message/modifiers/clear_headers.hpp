@@ -13,51 +13,43 @@
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/and.hpp>
 
-namespace boost { namespace network {
+namespace boost {
+namespace network {
 
-    namespace impl {
-        template <class Message, class Tag>
-        inline typename enable_if<
-            mpl::and_<
-                mpl::not_<is_pod<Tag> >
-                , mpl::not_<is_async<Tag> > 
-                >
-            , void
-            >::type
-        clear_headers(Message const & message, Tag const &) {
-            (typename Message::headers_container_type()).swap(message.headers());
-        }
+namespace impl {
+template <class Message, class Tag>
+inline typename enable_if<
+    mpl::and_<mpl::not_<is_pod<Tag> >, mpl::not_<is_async<Tag> > >, void>::type
+clear_headers(Message const &message, Tag const &) {
+  (typename Message::headers_container_type()).swap(message.headers());
+}
 
-        template <class Message, class Tag>
-        inline typename enable_if<is_pod<Tag>, void>::type
-        clear_headers(Message const & message, Tag const &) {
-            (typename Message::headers_container_type()).swap(message.headers);
-        }
+template <class Message, class Tag>
+inline typename enable_if<is_pod<Tag>, void>::type clear_headers(
+    Message const &message, Tag const &) {
+  (typename Message::headers_container_type()).swap(message.headers);
+}
 
-        template <class Message, class Tag>
-        inline typename enable_if<
-            mpl::and_<
-                mpl::not_<is_pod<Tag> >
-                , is_async<Tag>
-                >
-            , void
-            >::type
-        clear_headers(Message const & message, Tag const &) {
-            boost::promise<typename Message::headers_container_type> header_promise;
-            boost::shared_future<typename Message::headers_container_type> headers_future(header_promise.get_future());
-            message.headers(headers_future);
-            header_promise.set_value(typename Message::headers_container_type());
-        }
+template <class Message, class Tag>
+inline typename enable_if<mpl::and_<mpl::not_<is_pod<Tag> >, is_async<Tag> >,
+                          void>::type
+clear_headers(Message const &message, Tag const &) {
+  boost::promise<typename Message::headers_container_type> header_promise;
+  boost::shared_future<typename Message::headers_container_type> headers_future(
+      header_promise.get_future());
+  message.headers(headers_future);
+  header_promise.set_value(typename Message::headers_container_type());
+}
 
-    } // namespace impl
+}  // namespace impl
 
-    template <class Tag, template <class> class Message>
-    inline void clear_headers(Message<Tag> const & message) {
-        impl::clear_headers(message, Tag());
-    }
+template <class Tag, template <class> class Message>
+inline void clear_headers(Message<Tag> const &message) {
+  impl::clear_headers(message, Tag());
+}
 
-} // namespace network
+}  // namespace network
 
-} // namespace boost
+}  // namespace boost
 
-#endif // BOOST_NETWORK_MESSAGE_MODIFIER_CLEAR_HEADERS_HPP_20100824
+#endif  // BOOST_NETWORK_MESSAGE_MODIFIER_CLEAR_HEADERS_HPP_20100824

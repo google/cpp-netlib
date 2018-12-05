@@ -23,18 +23,18 @@ Without further ado, the code to do this is as follows:
     int main(int argc, char *argv[]) {
         using namespace boost::network;
 
-	if (argc != 2) {
-	    std::cout << "Usage: " << argv[0] << " [url]" << std::endl;
-    	    return 1;
+        if (argc != 2) {
+            std::cout << "Usage: " << argv[0] << " [url]" << std::endl;
+            return 1;
         }
 
         http::client client;
         http::client::request request(argv[1]);
-	request << header("Connection", "close");
-	http::client::response response = client.get(request);
-	std::cout << body(response) << std::endl;
+        request << header("Connection", "close");
+        http::client::response response = client.get(request);
+        std::cout << body(response) << std::endl;
 
-  	return 0;
+        return 0;
     }
 
 Running the example
@@ -50,11 +50,13 @@ You can then run this to get the Boost_ website:
 
 .. _Boost: http://www.boost.org/
 
-.. note:: The instructions for all these examples assume that
-          :mod:`cpp-netlib` is build outside the source tree,
-          according to `CMake conventions`_.  For the sake of
-          consistency we assume that this is in the
-          ``~/cpp-netlib-build`` directory.
+.. note::
+
+    The instructions for all these examples assume that
+    :mod:`cpp-netlib` is build outside the source tree,
+    according to `CMake conventions`_.  For the sake of
+    consistency we assume that this is in the
+    ``~/cpp-netlib-build`` directory.
 
 .. _`CMake conventions`: http://www.cmake.org/Wiki/CMake_FAQ#What_is_an_.22out-of-source.22_build.3F
 

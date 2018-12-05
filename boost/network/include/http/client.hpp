@@ -10,5 +10,4 @@
 
 #include <boost/network/protocol/http/client.hpp>
 
-#endif // BOOST_NETWORK_INCLUDE_HTTP_CLIENT_HPP_
-
+#endif  // BOOST_NETWORK_INCLUDE_HTTP_CLIENT_HPP_
